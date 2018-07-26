@@ -6,4 +6,5 @@
     <string name="need_location_permission_message">need location permission</string>
     <string name="top_places">Top Places</string>
     <string name="api_key_message">Please insert your API KEY from triposo.com into gradle.properties</string>
+    <string name="thumbnail">thumbnail</string>
 </resources>

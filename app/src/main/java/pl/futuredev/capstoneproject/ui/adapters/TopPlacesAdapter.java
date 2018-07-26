@@ -5,41 +5,48 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import pl.futuredev.capstoneproject.ui.IOnClickHandler;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import pl.futuredev.capstoneproject.R;
+import pl.futuredev.capstoneproject.models.Image;
+import pl.futuredev.capstoneproject.models.Original;
 import pl.futuredev.capstoneproject.models.Result;
+import pl.futuredev.capstoneproject.models.Thumbnail;
+import pl.futuredev.capstoneproject.ui.IOnClickHandler;
 
 public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.ViewHolder> {
 
-    private List<Result> result;
+
+    private List<Result> resultList;
     private IOnClickHandler iOnClickHandler;
 
-    public TopPlacesAdapter(List<Result>result, IOnClickHandler iOnClickHandler) {
-        this.result = result;
+    public TopPlacesAdapter( List<Result> resultList, IOnClickHandler iOnClickHandler) {
+        this.resultList = resultList;
         this.iOnClickHandler = iOnClickHandler;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-     /*   TextView tvReleaseDate;
-        ImageView tv_imageView;
-        TextView titleText;
-        RatingBar ratingBar;
-        TextView tvVoteAverage;
-        TextView tvVoteCount;*/
+        @BindView(R.id.iv_image)
+        ImageView ivImage;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_location)
+        TextView tvLocation;
+        @BindView(R.id.tv_snippet)
+        TextView tvSnippet;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-       /*     this.titleText = itemView.findViewById(R.id.tv_title_text);
-            this.tv_imageView = itemView.findViewById(R.id.tv_imageView);
-            this.tvReleaseDate = itemView.findViewById(R.id.tv_release_date);
-            this.ratingBar = itemView.findViewById(R.id.rating_bar);
-            this.tvVoteAverage = itemView.findViewById(R.id.tv_vote_average);
-            this.tvVoteCount = itemView.findViewById(R.id.tv_vote_count);*/
         }
 
         @Override
@@ -61,34 +68,23 @@ public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-/*        TextView titleTextView = holder.titleText;
-        ImageView imageView = holder.tv_imageView;
-        TextView tvReleaseDate = holder.tvReleaseDate;
-        RatingBar ratingBar = holder.ratingBar;
-        TextView tvVoteAverage = holder.tvVoteAverage;
-        TextView tvVoteCount = holder.tvVoteCount;*/
-/*
-        mCursor.moveToPosition(position);
-        String title = mCursor.getString(MainActivity.MOVIE_TITLE);
-        titleTextView.setText(title);
 
-        String votes = mCursor.getString(MainActivity.VOTE_AVERAGE);
+        ImageView ivImage = holder.ivImage;
+        TextView tvName = holder.tvName;
+        TextView tvLocation= holder.tvLocation;
+        TextView tvSnippet= holder.tvSnippet;
 
-        String release = mCursor.getString(MainActivity.RELEASE_DATE);
-        String year = release.substring(0, Math.min(release.length(), 4));
-        tvReleaseDate.setText(year);
+        List<Image> images = resultList.get(position).getImages();
+  //      Original originalImage = images.get(position).getSizes().getOriginal();
+   //     Picasso.get().load(originalImage.getUrl()).into(ivImage);
 
-        ratingBar.setRating(settingRatingBar(votes));
-        tvVoteAverage.setText(mCursor.getString(MainActivity.VOTE_AVERAGE) + mContext.getString(R.string.scores));
-        tvVoteCount.setText(mCursor.getString(MainActivity.VOTE_COUNT) + " " + mContext.getString(R.string.votes));
-
-        String imageUrl = UrlManager.IMAGE_BASE_URL;
-        String urlId = imageUrl + mCursor.getString(MainActivity.MOVIE_POSTER_PATCH);
-        Picasso.get().load(urlId).into(imageView);*/
+        tvName.setText(resultList.get(position).getName());
+        tvLocation.setText(resultList.get(position).getLocationId());
+        tvSnippet.setText(resultList.get(position).getSnippet());
     }
 
     @Override
     public int getItemCount() {
-       return result.size();
+        return resultList.size();
     }
 }
