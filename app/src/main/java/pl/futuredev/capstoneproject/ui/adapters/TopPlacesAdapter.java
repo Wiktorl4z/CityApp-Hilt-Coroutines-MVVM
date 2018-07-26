@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.futuredev.capstoneproject.R;
 import pl.futuredev.capstoneproject.models.Image;
+import pl.futuredev.capstoneproject.models.Medium;
 import pl.futuredev.capstoneproject.models.Original;
 import pl.futuredev.capstoneproject.models.Result;
 import pl.futuredev.capstoneproject.models.Thumbnail;
@@ -27,7 +28,7 @@ public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.View
     private List<Result> resultList;
     private IOnClickHandler iOnClickHandler;
 
-    public TopPlacesAdapter( List<Result> resultList, IOnClickHandler iOnClickHandler) {
+    public TopPlacesAdapter(List<Result> resultList, IOnClickHandler iOnClickHandler) {
         this.resultList = resultList;
         this.iOnClickHandler = iOnClickHandler;
     }
@@ -38,8 +39,6 @@ public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.View
         ImageView ivImage;
         @BindView(R.id.tv_name)
         TextView tvName;
-        @BindView(R.id.tv_location)
-        TextView tvLocation;
         @BindView(R.id.tv_snippet)
         TextView tvSnippet;
 
@@ -71,15 +70,30 @@ public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.View
 
         ImageView ivImage = holder.ivImage;
         TextView tvName = holder.tvName;
-        TextView tvLocation= holder.tvLocation;
-        TextView tvSnippet= holder.tvSnippet;
+        TextView tvSnippet = holder.tvSnippet;
 
         List<Image> images = resultList.get(position).getImages();
-  //      Original originalImage = images.get(position).getSizes().getOriginal();
-   //     Picasso.get().load(originalImage.getUrl()).into(ivImage);
+        if (images != null && !images.isEmpty()) {
+            Medium mediumImage = images.get(0).getSizes().getMedium();
+
+            Picasso.get()
+                    .load(mediumImage.getUrl())
+                    .into(ivImage, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Picasso.get().load(mediumImage.getUrl()).into(ivImage);
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Picasso.get().load(R.drawable.rest1).into(ivImage);
+                        }
+        });
+
+        }
 
         tvName.setText(resultList.get(position).getName());
-        tvLocation.setText(resultList.get(position).getLocationId());
         tvSnippet.setText(resultList.get(position).getSnippet());
     }
 
