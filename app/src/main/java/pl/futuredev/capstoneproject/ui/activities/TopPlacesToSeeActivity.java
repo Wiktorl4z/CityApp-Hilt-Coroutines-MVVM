@@ -1,4 +1,4 @@
-package pl.futuredev.capstoneproject.ui;
+package pl.futuredev.capstoneproject.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +20,13 @@ import pl.futuredev.capstoneproject.service.APIService;
 import pl.futuredev.capstoneproject.service.HttpConnector;
 import pl.futuredev.capstoneproject.service.InternetReceiver;
 import pl.futuredev.capstoneproject.service.utils.UrlManager;
-import pl.futuredev.capstoneproject.ui.adapters.TopPlacesAdapter;
+import pl.futuredev.capstoneproject.ui.adapters.TopPlacesToSeeAdapter;
+import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TopPlacesActivity extends AppCompatActivity implements IOnClickHandler {
+public class TopPlacesToSeeActivity extends AppCompatActivity {
 
     @BindView(R.id.my_recycler_view)
     RecyclerView myRecyclerView;
@@ -40,25 +41,19 @@ public class TopPlacesActivity extends AppCompatActivity implements IOnClickHand
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_top_places);
+        setContentView(R.layout.activity_top_places_to_see);
         ButterKnife.bind(this);
-
-
         if (UrlManager.API_KEY.isEmpty()) {
             Toast.makeText(getApplicationContext(), R.string.api_key_message, Toast.LENGTH_LONG).show();
         }
-
         internetReceiver = new InternetReceiver();
         service = HttpConnector.getService(APIService.class);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
-
-        getTopPlaces();
-
+        getTopPlacesToSee();
     }
 
-    private void getTopPlaces() {
-        service.getTopPlaces().enqueue(new Callback<Recipe>() {
+    private void getTopPlacesToSee() {
+        service.getTopPlacesToSee().enqueue(new Callback<Recipe>() {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 settingUpView(response);
@@ -66,7 +61,7 @@ public class TopPlacesActivity extends AppCompatActivity implements IOnClickHand
 
             @Override
             public void onFailure(Call<Recipe> call, Throwable t) {
-                Toast.makeText(TopPlacesActivity.this, t.getMessage(), Toast.LENGTH_SHORT)
+                Toast.makeText(TopPlacesToSeeActivity.this, t.getMessage(), Toast.LENGTH_SHORT)
                         .show();
             }
         });
@@ -77,7 +72,7 @@ public class TopPlacesActivity extends AppCompatActivity implements IOnClickHand
     private void settingUpView(Response<Recipe> response) {
         if (response.isSuccessful()) {
             resultList = response.body().getResults();
-            adapter = new TopPlacesAdapter(resultList, TopPlacesActivity.this::onClick);
+            adapter = new TopPlacesToSeeAdapter(resultList);
             myRecyclerView.setHasFixedSize(true);
             myRecyclerView.setLayoutManager(linearLayoutManager);
             ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(adapter);
@@ -87,20 +82,11 @@ public class TopPlacesActivity extends AppCompatActivity implements IOnClickHand
 
         } else {
             try {
-                Toast.makeText(TopPlacesActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT)
+                Toast.makeText(TopPlacesToSeeActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT)
                         .show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
-    @Override
-    public void onClick(int clickedItemIndex) {
-        Intent intent = new Intent(this, PlaceDetailActivity.class);
-        //      intent.putExtra("resultList", resultList.get(clickedItemIndex));
-        startActivity(intent);
-    }
-
-    ;
 }

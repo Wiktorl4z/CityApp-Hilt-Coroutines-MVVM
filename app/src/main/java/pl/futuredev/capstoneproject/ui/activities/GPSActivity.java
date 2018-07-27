@@ -1,4 +1,4 @@
-package pl.futuredev.capstoneproject.ui;
+package pl.futuredev.capstoneproject.ui.activities;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,7 +12,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 
 import pl.futuredev.capstoneproject.R;
-import pl.futuredev.capstoneproject.ui.MainActivity;
 
 public class GPSActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -27,10 +26,6 @@ public class GPSActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps);
 
-
-        // Build up the LocationServices API client
-        // Uses the addApi method to request the LocationServices API
-        // Also uses enableAutoManage to automatically when to connect/suspend the client
         GoogleApiClient client = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -38,7 +33,6 @@ public class GPSActivity extends AppCompatActivity implements
                 .addApi(Places.GEO_DATA_API)
                 .enableAutoManage(this, this)
                 .build();
-
     }
 
     @Override

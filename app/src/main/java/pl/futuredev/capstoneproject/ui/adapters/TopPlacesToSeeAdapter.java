@@ -17,24 +17,17 @@ import butterknife.ButterKnife;
 import pl.futuredev.capstoneproject.R;
 import pl.futuredev.capstoneproject.models.Image;
 import pl.futuredev.capstoneproject.models.Medium;
-import pl.futuredev.capstoneproject.models.Original;
 import pl.futuredev.capstoneproject.models.Result;
-import pl.futuredev.capstoneproject.models.Thumbnail;
-import pl.futuredev.capstoneproject.ui.IOnClickHandler;
+import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 
-public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.ViewHolder> {
-
-
+public class TopPlacesToSeeAdapter extends RecyclerView.Adapter<TopPlacesToSeeAdapter.ViewHolder> {
     private List<Result> resultList;
-    private IOnClickHandler iOnClickHandler;
 
-    public TopPlacesAdapter(List<Result> resultList, IOnClickHandler iOnClickHandler) {
+    public TopPlacesToSeeAdapter(List<Result> resultList) {
         this.resultList = resultList;
-        this.iOnClickHandler = iOnClickHandler;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+    public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_image)
         ImageView ivImage;
         @BindView(R.id.tv_name)
@@ -45,13 +38,6 @@ public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            int clickPosition = getAdapterPosition();
-            iOnClickHandler.onClick(clickPosition);
         }
     }
 
@@ -59,23 +45,19 @@ public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.top_places_single_layout, parent, false);
+                .inflate(R.layout.adapter_top_places_to_see, parent, false);
         view.setFocusable(true);
         return new ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         ImageView ivImage = holder.ivImage;
         TextView tvName = holder.tvName;
         TextView tvSnippet = holder.tvSnippet;
-
         List<Image> images = resultList.get(position).getImages();
         if (images != null && !images.isEmpty()) {
             Medium mediumImage = images.get(0).getSizes().getMedium();
-
             Picasso.get()
                     .load(mediumImage.getUrl())
                     .into(ivImage, new com.squareup.picasso.Callback() {
@@ -89,10 +71,8 @@ public class TopPlacesAdapter extends RecyclerView.Adapter<TopPlacesAdapter.View
                         public void onError(Exception e) {
                             Picasso.get().load(R.drawable.rest1).into(ivImage);
                         }
-        });
-
+                    });
         }
-
         tvName.setText(resultList.get(position).getName());
         tvSnippet.setText(resultList.get(position).getSnippet());
     }

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -42,93 +43,66 @@ public class Result implements Parcelable {
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("price")
+    @Expose
+    private Price price;
+    @SerializedName("vendor_tour_url")
+    @Expose
+    private String vendorTourUrl;
+
+    public String getVendorTourUrl() {
+        return vendorTourUrl;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
 
     public Object getPriceTier() {
         return priceTier;
-    }
-
-    public void setPriceTier(Object priceTier) {
-        this.priceTier = priceTier;
     }
 
     public List<Attribution> getAttribution() {
         return attribution;
     }
 
-    public void setAttribution(List<Attribution> attribution) {
-        this.attribution = attribution;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(String locationId) {
-        this.locationId = locationId;
-    }
-
     public Coordinates getCoordinates() {
         return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
     }
 
     public String getSnippet() {
         return snippet;
     }
 
-    public void setSnippet(String snippet) {
-        this.snippet = snippet;
-    }
-
     public Double getScore() {
         return score;
-    }
-
-    public void setScore(Double score) {
-        this.score = score;
     }
 
     public Object getSnippetLanguageInfo() {
         return snippetLanguageInfo;
     }
 
-    public void setSnippetLanguageInfo(Object snippetLanguageInfo) {
-        this.snippetLanguageInfo = snippetLanguageInfo;
-    }
-
     public List<Image> getImages() {
         return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 
     public Object getBookingInfo() {
         return bookingInfo;
     }
 
-    public void setBookingInfo(Object bookingInfo) {
-        this.bookingInfo = bookingInfo;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Result() {
     }
 
     @Override
@@ -149,9 +123,8 @@ public class Result implements Parcelable {
         dest.writeTypedList(this.images);
         dest.writeParcelable((Parcelable) this.bookingInfo, flags);
         dest.writeString(this.id);
-    }
-
-    public Result() {
+        dest.writeParcelable(this.price, flags);
+        dest.writeString(this.vendorTourUrl);
     }
 
     protected Result(Parcel in) {
@@ -166,9 +139,11 @@ public class Result implements Parcelable {
         this.images = in.createTypedArrayList(Image.CREATOR);
         this.bookingInfo = in.readParcelable(Object.class.getClassLoader());
         this.id = in.readString();
+        this.price = in.readParcelable(Price.class.getClassLoader());
+        this.vendorTourUrl = in.readString();
     }
 
-    public static final Parcelable.Creator<Result> CREATOR = new Parcelable.Creator<Result>() {
+    public static final Creator<Result> CREATOR = new Creator<Result>() {
         @Override
         public Result createFromParcel(Parcel source) {
             return new Result(source);

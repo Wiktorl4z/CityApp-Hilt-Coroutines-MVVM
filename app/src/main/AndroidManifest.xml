@@ -21,16 +21,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDIL9P_OcDKiYwrwbqGfRmKJiWANzaaTu0" />
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.GPSActivity" />
-        <activity android:name=".ui.TopPlacesActivity" />
-        <activity android:name=".ui.PlaceDetailActivity"></activity>
+        <activity android:name=".ui.activities.GPSActivity" />
+        <activity android:name=".ui.activities.TopPlacesToSeeActivity" />
+        <activity android:name=".ui.activities.PlaceDetailActivity" />
+        <activity android:name=".ui.activities.TopPlacesToEatActivity" />
+        <activity android:name=".ui.activities.TopScoringTagForLocationActivity"></activity>
     </application>
 
 </manifest>

@@ -4,7 +4,10 @@
     <string name="send_button_label">Send</string>
     <string name="gps">GPS</string>
     <string name="need_location_permission_message">need location permission</string>
-    <string name="top_places">Top Places</string>
+    <string name="top_places_to_see">Top Places to See</string>
+    <string name="top_places_to_eat">Top Places to Eat</string>
     <string name="api_key_message">Please insert your API KEY from triposo.com into gradle.properties</string>
     <string name="thumbnail">thumbnail</string>
+    <string name="hotels">Hotels</string>
+    <string name="top_scoring_tag_for_location">Top Scoring Tags for Location</string>
 </resources>

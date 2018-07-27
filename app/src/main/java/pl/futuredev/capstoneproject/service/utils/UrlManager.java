@@ -8,13 +8,12 @@ public class UrlManager {
     public static final String API_KEY = BuildConfig.API_KEY;
     public static final String ACCOUNT_ID = BuildConfig.ACCOUNT_ID;
     // https://www.triposo.com/api/20180627/location.json?id=London&account=<account ID>&token=<API token>
-
-    public static final String BASE_URL = "https://www.triposo.com/api/20180627/";
-
-
-    public static final String TEST = "https://www.triposo.com/api/20180627/";
-
+    // TODO change forced city to city_id
     // https://www.triposo.com/api/20180627/poi.json?location_id=Lublin&account="ACCOUNTID"&token="API_KEY"
+    public static final String TOP_PLACES_TO_SEE = "api/v1/poi.json?location_id=Lublin&account=" + ACCOUNT_ID + "&token=" + API_KEY;
+    // https://www.triposo.com/api/20180627/poi.json?location_id=Lublin&tag_labels=eatingout&count=10&order_by=-score&account=ACCOUNTID&token=API_KEY
+    public static final String TOP_PLACES_TO_EAT = "api/20180627/poi.json?location_id=Lublin&tag_labels=eatingout&count=10&order_by=-score&account=" + ACCOUNT_ID + "&token=" + API_KEY;
+    // https://www.triposo.com/api/20180627/tour.json?location_ids=Lublin&account=ACCOUNTID&token=API_KEY
+    public static final String TOP_SCORED_TAGS_FOR_LOCATION = "api/20180627/tour.json?location_ids=London&account=" + ACCOUNT_ID + "&token=" + API_KEY;
 
-    public static final String TOP_PLACES = "api/v1/poi.json?location_id=Lublin&account=" + ACCOUNT_ID + "&token=" + API_KEY;
 }

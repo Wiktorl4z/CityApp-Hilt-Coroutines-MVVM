@@ -1,4 +1,4 @@
-package pl.futuredev.capstoneproject.ui;
+package pl.futuredev.capstoneproject.ui.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -55,8 +55,13 @@ public class MainActivity extends AppCompatActivity {
     Button btGps;
     @BindView(R.id.location_permission_checkbox)
     CheckBox locationPermissionCheckbox;
-    @BindView(R.id.bt_top_places)
+    @BindView(R.id.bt_top_places_to_see)
     Button btTopPlaces;
+    @BindView(R.id.bt_top_places_to_eat)
+    Button btTopPlacesToEat;
+    @BindView(R.id.bt_top_scoring_tag_for_location)
+    Button btTopScoringTagForLocation;
+
 
     private ProgressBar mProgressBar;
     private ImageButton mPhotoPickerButton;
@@ -77,11 +82,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
         mUsername = ANONYMOUS;
         mFirebaseAuth = FirebaseAuth.getInstance();
-
-
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -106,7 +108,23 @@ public class MainActivity extends AppCompatActivity {
         btTopPlaces.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TopPlacesActivity.class);
+                Intent intent = new Intent(MainActivity.this, TopPlacesToSeeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btTopPlacesToEat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TopPlacesToEatActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btTopScoringTagForLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TopScoringTagForLocationActivity.class);
                 startActivity(intent);
             }
         });
