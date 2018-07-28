@@ -4,43 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image_city_2"
     tools:context=".ui.activities.MainActivity">
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <ImageView
-            android:id="@+id/tv_image_view1"
-            android:layout_width="match_parent"
-            android:layout_height="221dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/rest1"
-            android:scaleType="centerCrop" />
-
-        <ImageView
-            android:id="@+id/tv_image_view2"
-            android:layout_width="match_parent"
-            android:layout_height="221dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/rest2"
-            android:scaleType="centerCrop" />
-
-        <ImageView
-            android:id="@+id/tv_image_view3"
-            android:layout_width="match_parent"
-            android:layout_height="221dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/rest3"
-            android:scaleType="centerCrop" />
-    </LinearLayout>
-
 
     <CheckBox
         android:id="@+id/location_permission_checkbox"
@@ -48,20 +13,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="108dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="8dp"
         android:onClick="onLocationPermissionClicked"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bt_gps"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintVertical_bias="0.943" />
 
 
     <Button
         android:id="@+id/bt_gps"
         android:layout_width="107dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="208dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -69,50 +36,51 @@
         android:text="@string/gps"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
-        app:layout_constraintStart_toEndOf="@+id/location_permission_checkbox"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.902" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_search"
+        app:layout_constraintVertical_bias="0.867" />
 
-    <Button
-        android:id="@+id/bt_top_places_to_see"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="335dp"
+        android:layout_height="37dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/top_places_to_see"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
+        android:queryHint="@string/search_here"
+        android:background="#E9CFCF"
+        android:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_gps"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_fav_city_text" />
 
-    <Button
-        android:id="@+id/bt_top_places_to_eat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/top_places_to_eat"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_top_places_to_see" />
-
-    <Button
-        android:id="@+id/bt_top_scoring_tag_for_location"
+    <TextView
+        android:id="@+id/tv_search_fav_city_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="164dp"
+        android:text="@string/search_city"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/text_size_21"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bt_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/top_scoring_tag_for_location"
+        android:text="@string/search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_top_places_to_eat" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
 </android.support.constraint.ConstraintLayout>

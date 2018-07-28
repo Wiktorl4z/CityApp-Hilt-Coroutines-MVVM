@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -39,41 +41,28 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String ANONYMOUS = "anonymous";
     public static final int RC_SIGN_IN = 1;
-    private static final int RC_PHOTO_PICKER = 2;
-    public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
-    private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
+    private static final String CITY = "city";
 
-    @BindView(R.id.tv_image_view1)
-    ImageView tvImageView1;
-    @BindView(R.id.tv_image_view2)
-    ImageView tvImageView2;
-    @BindView(R.id.tv_image_view3)
-    ImageView tvImageView3;
-    @BindView(R.id.linearLayout)
-    LinearLayout linearLayout;
     @BindView(R.id.bt_gps)
     Button btGps;
     @BindView(R.id.location_permission_checkbox)
     CheckBox locationPermissionCheckbox;
-    @BindView(R.id.bt_top_places_to_see)
-    Button btTopPlaces;
-    @BindView(R.id.bt_top_places_to_eat)
-    Button btTopPlacesToEat;
-    @BindView(R.id.bt_top_scoring_tag_for_location)
-    Button btTopScoringTagForLocation;
-
+    @BindView(R.id.searchView)
+    SearchView searchView;
+    @BindView(R.id.tv_search_fav_city_text)
+    TextView textView;
+    @BindView(R.id.bt_search)
+    Button btSearch;
 
     private ProgressBar mProgressBar;
     private ImageButton mPhotoPickerButton;
     private EditText mMessageEditText;
     private Button mSendButton;
-
     private String mUsername;
-
-    // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int PLACE_PICKER_REQUEST = 1;
+    private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
 
 
     @Override
@@ -105,29 +94,31 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        btTopPlaces.setOnClickListener(new View.OnClickListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                String city = searchView.getQuery().toString();
+                Intent intent = new Intent(MainActivity.this, MainTestActivity.class);
+                intent.putExtra(CITY, city);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // do something when text changes
+                return false;
+            }
+        });
+
+        btSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TopPlacesToSeeActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainTestActivity.class);
                 startActivity(intent);
             }
         });
 
-        btTopPlacesToEat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TopPlacesToEatActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btTopScoringTagForLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TopScoringTagForLocationActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void onAddPlaceButtonClicked(View view) {
@@ -137,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         try {
-            // Start a new Activity for the Place Picker API, this will trigger {@code #onActivityResult}
-            // when a place is selected or with the user cancels.
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             Intent i = builder.build(this);
             startActivityForResult(i, PLACE_PICKER_REQUEST);

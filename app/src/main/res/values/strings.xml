@@ -10,4 +10,8 @@
     <string name="thumbnail">thumbnail</string>
     <string name="hotels">Hotels</string>
     <string name="top_scoring_tag_for_location">Top Scoring Tags for Location</string>
+    <string name="test_activity_main">Main</string>
+    <string name="search_city">Search City</string>
+    <string name="search">Search</string>
+    <string name="search_here">Search Here</string>
 </resources>
