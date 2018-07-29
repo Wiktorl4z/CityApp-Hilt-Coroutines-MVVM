@@ -15,4 +15,9 @@
     <string name="search">Search</string>
     <string name="search_here">Search Here</string>
     <string name="test">test</string>
+    <string name="creating_new_database_instance">Creating new database instance</string>
+    <string name="getting_database_instance">Getting the database instance</string>
+    <string name="retrieving_recipes_from_db">Actively retrieving recipes from the DataBase</string>
+    <string name="widget_removed">Widget Removed</string>
+    <string name="add_to_widget">Add to Widget</string>
 </resources>

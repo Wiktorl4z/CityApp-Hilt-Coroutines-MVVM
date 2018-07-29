@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String ANONYMOUS = "anonymous";
     public static final int RC_SIGN_IN = 1;
-    private static final String CITY = "city";
+    private static final String CITY_NAME = "city";
 
     @BindView(R.id.bt_gps)
     Button btGps;
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         btSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainTestActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainCityActivity.class);
                 startActivity(intent);
             }
         });
@@ -270,8 +270,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startActivity(List<Result> resultList) {
-        Intent intent = new Intent(MainActivity.this, CityResultActivity.class);
-        intent.putParcelableArrayListExtra(CITY, (ArrayList<? extends Parcelable>) resultList);
+        Intent intent = new Intent(MainActivity.this, CityResultsActivity.class);
+        intent.putParcelableArrayListExtra(CITY_NAME, (ArrayList<? extends Parcelable>) resultList);
         startActivity(intent);
     }
 

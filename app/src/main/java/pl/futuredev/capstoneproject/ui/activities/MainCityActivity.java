@@ -9,9 +9,8 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.futuredev.capstoneproject.R;
-import pl.futuredev.capstoneproject.models.Result;
 
-public class MainTestActivity extends AppCompatActivity {
+public class MainCityActivity extends AppCompatActivity {
 
     @BindView(R.id.bt_test_top_places_to_see)
     Button btTestTopPlacesToSee;
@@ -29,7 +28,7 @@ public class MainTestActivity extends AppCompatActivity {
         btTestTopPlacesToSee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainTestActivity.this, TopPlacesToSeeActivity.class);
+                Intent intent = new Intent(MainCityActivity.this, TopPlacesToSeeActivity.class);
                 startActivity(intent);
             }
         });
@@ -37,7 +36,7 @@ public class MainTestActivity extends AppCompatActivity {
         btTestTopPlacesToEat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainTestActivity.this, TopPlacesToEatActivity.class);
+                Intent intent = new Intent(MainCityActivity.this, TopPlacesToEatActivity.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +44,7 @@ public class MainTestActivity extends AppCompatActivity {
         btTestTopScoringTags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainTestActivity.this, TopScoringTagForLocationActivity.class);
+                Intent intent = new Intent(MainCityActivity.this, TopScoringTagForLocationActivity.class);
                 startActivity(intent);
             }
         });
