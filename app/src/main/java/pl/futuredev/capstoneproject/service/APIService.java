@@ -6,6 +6,7 @@ import pl.futuredev.capstoneproject.service.utils.UrlManager;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIService {
 
@@ -19,6 +20,8 @@ public interface APIService {
     Call<Recipe> getTopScoredTagsForLocation();
 
     @GET(UrlManager.FIND_CITY_BY_LOCATION_ID)
-    Call<Result> getCityByLocationId(@Path("location_id") String locationId);
+    Call<Recipe> getCityByLocationId(@Path(value = "location_id") String locationId);
 
+    @GET(UrlManager.TEST_FIND_CITY_BY_LOCATION_ID)
+    Call<Recipe> getCityByLocationId();
 }

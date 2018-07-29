@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/iv_image"
+        android:id="@+id/iv_city"
         android:layout_width="160dp"
         android:layout_height="140dp"
         android:layout_marginStart="16dp"
@@ -15,10 +15,10 @@
         android:contentDescription="@string/thumbnail"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_city_name" />
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tv_city_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -31,7 +31,7 @@
 
 
     <TextView
-        android:id="@+id/tv_snippet"
+        android:id="@+id/tv_city_snippet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -40,11 +40,11 @@
         android:textSize="@dimen/text_size_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/iv_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintStart_toEndOf="@+id/iv_city"
+        app:layout_constraintTop_toBottomOf="@+id/tv_city_name" />
 
     <TextView
-        android:id="@+id/tv_score"
+        android:id="@+id/tv_city_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -54,8 +54,8 @@
         android:text="@string/test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_snippet" />
+        app:layout_constraintStart_toEndOf="@+id/iv_city"
+        app:layout_constraintTop_toBottomOf="@+id/tv_city_snippet" />
 
 
 </android.support.constraint.ConstraintLayout>

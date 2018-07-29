@@ -9,6 +9,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.futuredev.capstoneproject.R;
+import pl.futuredev.capstoneproject.models.Result;
 
 public class MainTestActivity extends AppCompatActivity {
 
@@ -18,16 +19,12 @@ public class MainTestActivity extends AppCompatActivity {
     Button btTestTopPlacesToEat;
     @BindView(R.id.bt_test_top_scoring_tags)
     Button btTestTopScoringTags;
-    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_main);
         ButterKnife.bind(this);
-
-        Intent intent = getIntent();
-        city = intent.getStringExtra("city");
 
         btTestTopPlacesToSee.setOnClickListener(new View.OnClickListener() {
             @Override

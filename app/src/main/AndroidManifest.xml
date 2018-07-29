@@ -33,7 +33,8 @@
         <activity android:name=".ui.activities.PlaceDetailActivity" />
         <activity android:name=".ui.activities.TopPlacesToEatActivity" />
         <activity android:name=".ui.activities.TopScoringTagForLocationActivity" />
-        <activity android:name=".ui.activities.MainTestActivity"></activity>
+        <activity android:name=".ui.activities.MainTestActivity" />
+        <activity android:name=".ui.activities.CityResultActivity"></activity>
     </application>
 
 </manifest>
