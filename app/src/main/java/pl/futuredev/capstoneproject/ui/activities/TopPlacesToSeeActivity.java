@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -19,14 +20,15 @@ import pl.futuredev.capstoneproject.models.Result;
 import pl.futuredev.capstoneproject.service.APIService;
 import pl.futuredev.capstoneproject.service.HttpConnector;
 import pl.futuredev.capstoneproject.service.InternetReceiver;
-import pl.futuredev.capstoneproject.service.utils.UrlManager;
 import pl.futuredev.capstoneproject.ui.adapters.TopPlacesToSeeAdapter;
-import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TopPlacesToSeeActivity extends AppCompatActivity {
+
+    private static final String TAG = "TopPlacesToSeeActivity";
+    private static final String CITY_NAME = "city_name";
 
     @BindView(R.id.my_recycler_view)
     RecyclerView myRecyclerView;
@@ -35,7 +37,7 @@ public class TopPlacesToSeeActivity extends AppCompatActivity {
     private List<Result> resultList;
     private RecyclerView.Adapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    private String cityName;
+    private String cityId;
     private Recipe recipe;
 
     @Override
@@ -43,17 +45,19 @@ public class TopPlacesToSeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_places_to_see);
         ButterKnife.bind(this);
-        if (UrlManager.API_KEY.isEmpty()) {
-            Toast.makeText(getApplicationContext(), R.string.api_key_message, Toast.LENGTH_LONG).show();
-        }
+
+        Intent intent = getIntent();
+        cityId = intent.getStringExtra(CITY_NAME);
+
         internetReceiver = new InternetReceiver();
         service = HttpConnector.getService(APIService.class);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        getTopPlacesToSee();
+        getTopPlacesToSee(cityId);
     }
 
-    private void getTopPlacesToSee() {
-        service.getTopPlacesToSee().enqueue(new Callback<Recipe>() {
+    private void getTopPlacesToSee(String cityId) {
+        Log.e(TAG, service.getTopPlacesToSee(cityId).request().url().toString());
+        service.getTopPlacesToSee(cityId).enqueue(new Callback<Recipe>() {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 settingUpView(response);

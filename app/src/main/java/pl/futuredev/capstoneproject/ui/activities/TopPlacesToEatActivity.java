@@ -1,10 +1,11 @@
 package pl.futuredev.capstoneproject.ui.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -19,15 +20,15 @@ import pl.futuredev.capstoneproject.models.Result;
 import pl.futuredev.capstoneproject.service.APIService;
 import pl.futuredev.capstoneproject.service.HttpConnector;
 import pl.futuredev.capstoneproject.service.InternetReceiver;
-import pl.futuredev.capstoneproject.service.utils.UrlManager;
 import pl.futuredev.capstoneproject.ui.adapters.TopPlacesToEatAdapter;
-import pl.futuredev.capstoneproject.ui.adapters.TopPlacesToSeeAdapter;
-import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TopPlacesToEatActivity extends AppCompatActivity {
+
+    private static final String TAG = "TopPlacesToSeeActivity";
+    private static final String CITY_NAME = "city_name";
 
     @BindView(R.id.my_recycler_view)
     RecyclerView myRecyclerView;
@@ -38,23 +39,26 @@ public class TopPlacesToEatActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private String cityName;
     private Recipe recipe;
+    private String cityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_places_to_eat);
         ButterKnife.bind(this);
-        if (UrlManager.API_KEY.isEmpty()) {
-            Toast.makeText(getApplicationContext(), R.string.api_key_message, Toast.LENGTH_LONG).show();
-        }
+
+        Intent intent = getIntent();
+        cityId = intent.getStringExtra(CITY_NAME);
+
         internetReceiver = new InternetReceiver();
         service = HttpConnector.getService(APIService.class);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        getTopPlacesToEat();
+        getTopPlacesToEat(cityId);
     }
 
-    private void getTopPlacesToEat() {
-        service.getTopPlacesToEat().enqueue(new Callback<Recipe>() {
+    private void getTopPlacesToEat(String cityId) {
+        Log.e(TAG, service.getTopPlacesToEat(cityId).request().url().toString());
+        service.getTopPlacesToEat(cityId).enqueue(new Callback<Recipe>() {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 settingUpView(response);

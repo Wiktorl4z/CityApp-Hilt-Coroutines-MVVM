@@ -20,13 +20,16 @@ import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 
 public class CityResultsActivity extends AppCompatActivity implements IOnClickHandler {
 
+    private static final String CITY_ID = "city_id";
+    private static final String CITY_IMAGE = "city_image";
+    private static final String CITY_SNIPPET = "city_snippet";
+    private static final String CITY_NAME = "city_name";
+
     @BindView(R.id.my_recycler_view)
     RecyclerView myRecyclerView;
     private CityResultAdapter cityResultAdapter;
     private List<Result> resultCity;
     private LinearLayoutManager linearLayoutManager;
-    private static final String CITY_ID = "city_id";
-    private static final String IMAGES = "images";
 
 
     @Override
@@ -51,7 +54,8 @@ public class CityResultsActivity extends AppCompatActivity implements IOnClickHa
     public void onClick(int clickedItemIndex) {
         Intent intent = new Intent(CityResultsActivity.this, MainCityActivity.class);
         intent.putExtra(CITY_ID, resultCity.get(clickedItemIndex).getId());
-        intent.putExtra(IMAGES, (Parcelable) resultCity.get(clickedItemIndex).getImages());
+        intent.putParcelableArrayListExtra(CITY_IMAGE, (ArrayList<? extends Parcelable>) resultCity.get(clickedItemIndex).getImages());
+        intent.putExtra(CITY_SNIPPET, resultCity.get(clickedItemIndex).getSnippet());
         startActivity(intent);
     }
 }

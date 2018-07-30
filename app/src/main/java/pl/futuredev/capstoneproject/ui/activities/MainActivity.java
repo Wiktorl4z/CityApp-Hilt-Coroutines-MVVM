@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 providedCityByUser = searchView.getQuery().toString();
-                getTestProvidedCity(providedCityByUser);
+                getProvidedCity(providedCityByUser);
                 return false;
             }
 
@@ -224,24 +224,9 @@ public class MainActivity extends AppCompatActivity {
                 PERMISSIONS_REQUEST_FINE_LOCATION);
     }
 
-    private void getTestProvidedCity(String city) {
-        service.getCityByLocationId("trigram:"+city).enqueue(new Callback<Recipe>() {
-            @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
-                responseForProvidedCity(response);
-            }
-
-            @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
-    }
-
-
-    private void getProvidedCity(String providedCityByUser) {
-        service.getCityByLocationId(providedCityByUser).enqueue(new Callback<Recipe>() {
+    private void getProvidedCity(String city) {
+        Log.e(TAG, service.getCityByLocationId("trigram:" + city).request().url().toString());
+        service.getCityByLocationId("trigram:" + city).enqueue(new Callback<Recipe>() {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 responseForProvidedCity(response);
@@ -273,5 +258,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, CityResultsActivity.class);
         intent.putParcelableArrayListExtra(CITY_NAME, (ArrayList<? extends Parcelable>) resultList);
         startActivity(intent);
-    };
+    }
+
+    ;
 }
