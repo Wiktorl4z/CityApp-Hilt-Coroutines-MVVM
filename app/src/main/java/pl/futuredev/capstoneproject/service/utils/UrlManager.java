@@ -17,6 +17,7 @@ public class UrlManager {
     public static final String TOP_SCORED_TAGS_FOR_LOCATION = "api/20180627/tour.json?location_ids=London&account=" + ACCOUNT_ID + "&token=" + API_KEY;
     // https://www.triposo.com/api/20180627/location.json?location_ids=Lublin&account=ACCOUNTID&token=API_KEY
     // https://www.triposo.com/api/20180627/location.json?tag_labels=city&annotate=trigram:{location_id}&trigram=%3E=0.3&count=10&fields=id,name,score,country_id,parent_id,snippet,images&order_by=-trigram&account=ACCOUNTID&token=API_KEY
-    public static final String FIND_CITY_BY_LOCATION_ID = "api/20180627/location.json?tag_labels=city&annotate=trigram:location_id&trigram=%3E=0.3&count=10&fields=id,name,score,country_id,parent_id,snippet,images&order_by=-trigram&account=" + ACCOUNT_ID + "&token=" + API_KEY;
-    public static final String TEST_FIND_CITY_BY_LOCATION_ID = "api/20180627/location.json?tag_labels=city&annotate=trigram:Lublin&trigram=%3E=0.3&count=10&fields=id,name,score,country_id,parent_id,snippet,images&order_by=-trigram&account=" + ACCOUNT_ID + "&token=" + API_KEY;
+    public static final String FIND_CITY_BY_LOCATION_ID = "api/20180627/location.json?tag_labels=city&annotate=trigram:&trigram=%3E=0.3&count=10&fields=id,name,score,country_id,parent_id,snippet,images&order_by=-score&account=" + ACCOUNT_ID + "&token=" + API_KEY;
+    public static final String FIRST_CHANCE = "api/20180627/location.json?tag_labels=city&annotate=trigram:";
+    public static final String SECOND_CHANCE = "&trigram=%3E=0.3&count=10&fields=id,name,score,country_id,parent_id,snippet,images&order_by=-trigram&account=" + ACCOUNT_ID + "&token=" + API_KEY;
 }

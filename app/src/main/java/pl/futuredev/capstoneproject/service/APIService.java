@@ -5,6 +5,7 @@ import pl.futuredev.capstoneproject.models.Recipe;
 import pl.futuredev.capstoneproject.service.utils.UrlManager;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {
@@ -22,11 +23,6 @@ public interface APIService {
     Call<Recipe> getTopScoredTagsForLocation();
 
     @GET(UrlManager.FIND_CITY_BY_LOCATION_ID)
-    Call<Recipe> getCityByLocationId(@Query(value = "location_id") String locationId);
+    Call<Recipe> getCityByLocationId(@Query(value = "annotate", encoded = true) String locationId);
 
-    @GET(UrlManager.TEST_FIND_CITY_BY_LOCATION_ID)
-    Call<Recipe> getCityByLocationId();
-
-    @GET("api/20180627/location.json?tag_labels=city&annotate=trigram:location_id&trigram=%3E=0.3&count=10&fields=id,name,score,country_id,parent_id,snippet,images&order_by=-trigram&account="+ACCOUNT_ID +"&token="+API_KEY)
-    Call<Recipe> testGetCityByLocationId(@Query(value = "location_id") String locationId);
 }

@@ -49,6 +49,9 @@ public class Result implements Parcelable {
     @SerializedName("vendor_tour_url")
     @Expose
     private String vendorTourUrl;
+    @SerializedName("country_id")
+    @Expose
+    private String countryId;
 
     public String getVendorTourUrl() {
         return vendorTourUrl;
@@ -105,6 +108,10 @@ public class Result implements Parcelable {
     public Result() {
     }
 
+    public String getCountryId() {
+        return countryId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -125,6 +132,7 @@ public class Result implements Parcelable {
         dest.writeString(this.id);
         dest.writeParcelable(this.price, flags);
         dest.writeString(this.vendorTourUrl);
+        dest.writeString(this.countryId);
     }
 
     protected Result(Parcel in) {
@@ -141,6 +149,7 @@ public class Result implements Parcelable {
         this.id = in.readString();
         this.price = in.readParcelable(Price.class.getClassLoader());
         this.vendorTourUrl = in.readString();
+        this.countryId = in.readString();
     }
 
     public static final Creator<Result> CREATOR = new Creator<Result>() {

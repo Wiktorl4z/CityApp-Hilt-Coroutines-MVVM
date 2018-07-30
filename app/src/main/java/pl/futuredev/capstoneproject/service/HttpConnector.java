@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpConnector {
 
     private static Retrofit retrofit;
-    public static final String BASE_URL = "http://www.triposo.com/";
+    private static final String BASE_URL = "https://www.triposo.com";
 
     private HttpConnector() {
     }

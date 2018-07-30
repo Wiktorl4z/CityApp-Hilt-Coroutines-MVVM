@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 providedCityByUser = searchView.getQuery().toString();
-                getProvidedCity(providedCityByUser);
+                getTestProvidedCity(providedCityByUser);
                 return false;
             }
 
@@ -224,8 +224,8 @@ public class MainActivity extends AppCompatActivity {
                 PERMISSIONS_REQUEST_FINE_LOCATION);
     }
 
-    private void getTestProvidedCity() {
-        service.getCityByLocationId().enqueue(new Callback<Recipe>() {
+    private void getTestProvidedCity(String city) {
+        service.getCityByLocationId("trigram:"+city).enqueue(new Callback<Recipe>() {
             @Override
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 responseForProvidedCity(response);
@@ -273,7 +273,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, CityResultsActivity.class);
         intent.putParcelableArrayListExtra(CITY_NAME, (ArrayList<? extends Parcelable>) resultList);
         startActivity(intent);
-    }
-
-    ;
+    };
 }

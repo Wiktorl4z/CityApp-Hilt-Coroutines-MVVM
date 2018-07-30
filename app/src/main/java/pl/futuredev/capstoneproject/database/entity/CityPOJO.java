@@ -30,4 +30,18 @@ public class CityPOJO {
     public int getCityId() {
         return cityId;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCityId(@NonNull int cityId) {
+        this.cityId = cityId;
+    }
+
+
 }

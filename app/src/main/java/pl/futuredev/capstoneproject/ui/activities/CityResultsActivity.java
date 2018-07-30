@@ -2,10 +2,12 @@ package pl.futuredev.capstoneproject.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,7 +25,9 @@ public class CityResultsActivity extends AppCompatActivity implements IOnClickHa
     private CityResultAdapter cityResultAdapter;
     private List<Result> resultCity;
     private LinearLayoutManager linearLayoutManager;
-    private static final String CITY_NAME = "city";
+    private static final String CITY_ID = "city_id";
+    private static final String IMAGES = "images";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +37,21 @@ public class CityResultsActivity extends AppCompatActivity implements IOnClickHa
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         resultCity = getIntent().getParcelableArrayListExtra("city");
-        cityResultAdapter = new CityResultAdapter(resultCity,CityResultsActivity.this::onClick);
+        cityResultAdapter = new CityResultAdapter(resultCity, CityResultsActivity.this::onClick);
         ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(cityResultAdapter);
-        scaleInAnimationAdapter.setDuration(1650);
+        scaleInAnimationAdapter.setDuration(1350);
         scaleInAnimationAdapter.setFirstOnly(false);
         myRecyclerView.setHasFixedSize(true);
         myRecyclerView.setLayoutManager(linearLayoutManager);
         myRecyclerView.setAdapter(scaleInAnimationAdapter);
-
 
     }
 
     @Override
     public void onClick(int clickedItemIndex) {
         Intent intent = new Intent(CityResultsActivity.this, MainCityActivity.class);
-        intent.putExtra(CITY_NAME, resultCity.get(clickedItemIndex).getId());
+        intent.putExtra(CITY_ID, resultCity.get(clickedItemIndex).getId());
+        intent.putExtra(IMAGES, (Parcelable) resultCity.get(clickedItemIndex).getImages());
         startActivity(intent);
     }
 }
