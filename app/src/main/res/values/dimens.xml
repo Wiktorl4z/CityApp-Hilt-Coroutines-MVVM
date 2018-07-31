@@ -9,4 +9,9 @@
     <dimen name="text_size_32">32sp</dimen>
     <dimen name="text_size_34">34sp</dimen>
     <dimen name="text_size_36">36sp</dimen>
+    <dimen name="dp4">4dp</dimen>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp24">24dp</dimen>
+    <dimen name="dp32">32dp</dimen>
 </resources>

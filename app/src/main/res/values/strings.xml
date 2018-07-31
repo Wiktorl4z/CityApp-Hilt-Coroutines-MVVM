@@ -11,13 +11,13 @@
     <string name="hotels">Hotels</string>
     <string name="top_scoring_tag_for_location">Top Scoring Tags for Location</string>
     <string name="test_activity_main">Main</string>
-    <string name="search_city">Search City</string>
     <string name="search">Search</string>
-    <string name="search_here">Search Here</string>
+    <string name="search_city">Search City</string>
     <string name="test">test</string>
     <string name="creating_new_database_instance">Creating new database instance</string>
     <string name="getting_database_instance">Getting the database instance</string>
     <string name="retrieving_recipes_from_db">Actively retrieving recipes from the DataBase</string>
     <string name="city_removed_from_db">Removed from favourite widget</string>
     <string name="add_city_to_db">Add to favourite and to widget</string>
+    <string name="appwidget_text">CityChecker</string>
 </resources>

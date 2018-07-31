@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
     CheckBox locationPermissionCheckbox;
     @BindView(R.id.searchView)
     SearchView searchView;
-    @BindView(R.id.tv_search_fav_city_text)
-    TextView textView;
 
     private String userName;
     private FirebaseAuth firebaseAuth;

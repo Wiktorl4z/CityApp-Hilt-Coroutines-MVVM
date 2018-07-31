@@ -146,7 +146,7 @@ public class MainCityActivity extends AppCompatActivity {
                     .parseColor("#ff0000")));
         } else {
             fab.setBackgroundTintList(ColorStateList.valueOf(Color
-                    .parseColor("#cdf7fb")));
+                    .parseColor("#80e27e")));
         }
     }
 
@@ -154,7 +154,7 @@ public class MainCityActivity extends AppCompatActivity {
         AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
-                CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityId);
+                CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityName);
                 if (city != null) {
                     removeFromDatabase(city);
                     isFavourite = false;
@@ -178,7 +178,7 @@ public class MainCityActivity extends AppCompatActivity {
     }
 
     public void addToDatabase() {
-        cityPOJO = new CityPOJO(cityId);
+        cityPOJO = new CityPOJO(cityName);
         AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
