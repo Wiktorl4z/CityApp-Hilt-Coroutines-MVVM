@@ -19,20 +19,20 @@ public abstract class CityDataBase extends RoomDatabase {
     private static final String LOG_TAG = CityDataBase.class.getSimpleName();
     private static final Object LOCK = new Object();
     private static final String DATABASE_NAME = "favouriteCity";
-    private static CityDataBase recipeDataBaseInstance;
+    private static CityDataBase cityDataBase;
 
     public static CityDataBase getInstance(Context context) {
-        if (recipeDataBaseInstance == null) {
+        if (cityDataBase == null) {
             synchronized (LOCK) {
                 Log.d(LOG_TAG, context.getString(R.string.creating_new_database_instance));
-                recipeDataBaseInstance = Room.databaseBuilder(context.getApplicationContext(),
+                cityDataBase = Room.databaseBuilder(context.getApplicationContext(),
                         CityDataBase.class, CityDataBase.DATABASE_NAME)
                         .fallbackToDestructiveMigration()
                         .build();
             }
         }
         Log.d(LOG_TAG, context.getString(R.string.getting_database_instance));
-        return recipeDataBaseInstance;
+        return cityDataBase;
     }
 
     public abstract CityDao cityDao();

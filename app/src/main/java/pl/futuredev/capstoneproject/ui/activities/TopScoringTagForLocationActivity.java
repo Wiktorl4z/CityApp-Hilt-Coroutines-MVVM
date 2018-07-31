@@ -31,7 +31,7 @@ import retrofit2.Response;
 public class TopScoringTagForLocationActivity extends AppCompatActivity implements IOnClickHandler {
 
     private static final String TAG = "TopPlacesToSeeActivity";
-    private static final String CITY_NAME = "city_name";
+    private static final String CITY_ID = "city_id";
 
     @BindView(R.id.my_recycler_view)
     RecyclerView myRecyclerView;
@@ -51,7 +51,7 @@ public class TopScoringTagForLocationActivity extends AppCompatActivity implemen
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        cityId = intent.getStringExtra(CITY_NAME);
+        cityId = intent.getStringExtra(CITY_ID);
 
         internetReceiver = new InternetReceiver();
         service = HttpConnector.getService(APIService.class);

@@ -1,6 +1,9 @@
 package pl.futuredev.capstoneproject.ui.activities;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +20,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.futuredev.capstoneproject.R;
+import pl.futuredev.capstoneproject.database.dao.CityDao;
+import pl.futuredev.capstoneproject.database.entity.CityDataBase;
+import pl.futuredev.capstoneproject.database.entity.CityPOJO;
 import pl.futuredev.capstoneproject.models.Image;
 import pl.futuredev.capstoneproject.models.Original;
 import pl.futuredev.capstoneproject.models.Result;
 import pl.futuredev.capstoneproject.service.APIService;
 import pl.futuredev.capstoneproject.service.HttpConnector;
 import pl.futuredev.capstoneproject.service.InternetReceiver;
+import pl.futuredev.capstoneproject.viewmodel.AppExecutors;
 
 public class MainCityActivity extends AppCompatActivity {
 
@@ -54,6 +61,10 @@ public class MainCityActivity extends AppCompatActivity {
     private String cityId;
     private String citySnippet;
     private String cityName;
+    private CityDataBase cityDataBase;
+    private CityPOJO cityPOJO;
+    private static boolean isFavourite;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +81,37 @@ public class MainCityActivity extends AppCompatActivity {
         citySnippet = getIntent().getStringExtra(CITY_SNIPPET);
         imageList = intent.getParcelableArrayListExtra(CITY_IMAGE);
 
-        settingUpView();
+        cityDataBase = CityDataBase.getInstance(getApplicationContext());
 
+        settingUpView();
         Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        checkingObjectInDataBase();
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        colorSwitcherForFAB();
+                    }
+                }.execute();
+            }
+        });
+
+
 
         btTestTopPlacesToSee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainCityActivity.this, TopPlacesToSeeActivity.class);
-                intent.putExtra(CITY_NAME, cityId);
+                intent.putExtra(CITY_ID, cityId);
                 startActivity(intent);
             }
         });
@@ -87,7 +120,7 @@ public class MainCityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainCityActivity.this, TopPlacesToEatActivity.class);
-                intent.putExtra(CITY_NAME, cityId);
+                intent.putExtra(CITY_ID, cityId);
                 startActivity(intent);
             }
         });
@@ -96,13 +129,64 @@ public class MainCityActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainCityActivity.this, TopScoringTagForLocationActivity.class);
-                intent.putExtra(CITY_NAME, cityId);
+                intent.putExtra(CITY_ID, cityId);
                 startActivity(intent);
             }
         });
 
     }
 
+    private void colorSwitcherForFAB() {
+        if (isFavourite) {
+            fab.setBackgroundTintList(ColorStateList.valueOf(Color
+                    .parseColor("#ff0000")));
+        } else {
+            fab.setBackgroundTintList(ColorStateList.valueOf(Color
+                    .parseColor("#cdf7fb")));
+        }
+    }
+
+    public void checkingObjectInDataBase() {
+        AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityId);
+                if (city != null) {
+                    removeFromDatabase(city);
+                    isFavourite = false;
+                } else {
+                    addToDatabase();
+                    isFavourite = true;
+                }
+            }
+        });
+    }
+
+
+    public void removeFromDatabase(CityPOJO city) {
+        AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                cityDataBase.cityDao().deleteCity(city);
+                showToast(getString(R.string.city_removed_from_db));
+            }
+        });
+    }
+
+    public void addToDatabase() {
+        cityPOJO = new CityPOJO(cityId);
+        AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                cityDataBase.cityDao().insertCity(cityPOJO);
+                showToast(getString(R.string.add_city_to_db));
+            }
+        });
+    }
+
+    public void showToast(final String toast) {
+        runOnUiThread(() -> Toast.makeText(this, toast, Toast.LENGTH_SHORT).show());
+    }
 
     private void settingUpView() {
         if (imageList != null && !imageList.isEmpty()) {
@@ -113,7 +197,6 @@ public class MainCityActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess() {
                             Picasso.get().load(originalImage.getUrl()).into(threeTwoImage);
-
                         }
 
                         @Override

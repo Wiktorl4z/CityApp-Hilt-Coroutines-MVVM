@@ -59,11 +59,9 @@ public class MainActivity extends AppCompatActivity {
     SearchView searchView;
     @BindView(R.id.tv_search_fav_city_text)
     TextView textView;
-    @BindView(R.id.bt_search)
-    Button btSearch;
 
     private String userName;
-    private FirebaseAuth firebaseA;
+    private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         userName = ANONYMOUS;
-        firebaseA = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -119,14 +117,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
-            }
-        });
-
-        btSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainCityActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -207,14 +197,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if (authStateListener != null) {
-            firebaseA.removeAuthStateListener(authStateListener);
+            firebaseAuth.removeAuthStateListener(authStateListener);
         }
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        firebaseA.addAuthStateListener(authStateListener);
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
 
 
@@ -255,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startActivity(List<Result> resultList) {
-        Intent intent = new Intent(MainActivity.this, CityResultsActivity.class);
+        Intent intent = new Intent(MainActivity.this, CitySearchResultsActivity.class);
         intent.putParcelableArrayListExtra(CITY_NAME, (ArrayList<? extends Parcelable>) resultList);
         startActivity(intent);
     }

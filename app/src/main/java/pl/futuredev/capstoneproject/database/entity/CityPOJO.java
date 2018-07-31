@@ -7,28 +7,23 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "city", indices = {@Index(value = "city_id", unique = true)})
+@Entity(tableName = "city", indices = {@Index(value = "city_name", unique = true)})
 public class CityPOJO {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
     @NonNull
-    @ColumnInfo(name = "city_id")
-    private int cityId;
+    @ColumnInfo(name = "city_name")
+    private String cityName;
 
-    public CityPOJO(int id, @NonNull int cityId) {
+    public CityPOJO(int id, @NonNull String cityName) {
         this.id = id;
-        this.cityId = cityId;
+        this.cityName = cityName;
     }
 
     @Ignore
-    public CityPOJO(@NonNull int cityId) {
-        this.cityId = cityId;
-    }
-
-    @NonNull
-    public int getCityId() {
-        return cityId;
+    public CityPOJO(@NonNull String cityName) {
+        this.cityName = cityName;
     }
 
     public int getId() {
@@ -39,9 +34,12 @@ public class CityPOJO {
         this.id = id;
     }
 
-    public void setCityId(@NonNull int cityId) {
-        this.cityId = cityId;
+    @NonNull
+    public String getCityName() {
+        return cityName;
     }
 
-
+    public void setCityName(@NonNull String cityName) {
+        this.cityName = cityName;
+    }
 }

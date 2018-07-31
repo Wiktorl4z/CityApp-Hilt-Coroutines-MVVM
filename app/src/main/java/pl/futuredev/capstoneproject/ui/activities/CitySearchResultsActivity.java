@@ -18,7 +18,7 @@ import pl.futuredev.capstoneproject.models.Result;
 import pl.futuredev.capstoneproject.ui.adapters.CityResultAdapter;
 import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 
-public class CityResultsActivity extends AppCompatActivity implements IOnClickHandler {
+public class CitySearchResultsActivity extends AppCompatActivity implements IOnClickHandler {
 
     private static final String CITY_ID = "city_id";
     private static final String CITY_IMAGE = "city_image";
@@ -40,7 +40,7 @@ public class CityResultsActivity extends AppCompatActivity implements IOnClickHa
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         resultCity = getIntent().getParcelableArrayListExtra("city");
-        cityResultAdapter = new CityResultAdapter(resultCity, CityResultsActivity.this::onClick);
+        cityResultAdapter = new CityResultAdapter(resultCity, CitySearchResultsActivity.this::onClick);
         ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(cityResultAdapter);
         scaleInAnimationAdapter.setDuration(1350);
         scaleInAnimationAdapter.setFirstOnly(false);
@@ -52,8 +52,9 @@ public class CityResultsActivity extends AppCompatActivity implements IOnClickHa
 
     @Override
     public void onClick(int clickedItemIndex) {
-        Intent intent = new Intent(CityResultsActivity.this, MainCityActivity.class);
+        Intent intent = new Intent(CitySearchResultsActivity.this, MainCityActivity.class);
         intent.putExtra(CITY_ID, resultCity.get(clickedItemIndex).getId());
+        intent.putExtra(CITY_NAME, resultCity.get(clickedItemIndex).getName());
         intent.putParcelableArrayListExtra(CITY_IMAGE, (ArrayList<? extends Parcelable>) resultCity.get(clickedItemIndex).getImages());
         intent.putExtra(CITY_SNIPPET, resultCity.get(clickedItemIndex).getSnippet());
         startActivity(intent);

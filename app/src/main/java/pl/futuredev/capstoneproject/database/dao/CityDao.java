@@ -26,10 +26,10 @@ public interface CityDao {
     @Delete
     void deleteCity(CityPOJO cityPOJO);
 
-    @Query("SELECT * FROM city WHERE city_id = :cityID")
-    LiveData<CityPOJO> loadCityById(int cityID);
+    @Query("SELECT * FROM city WHERE city_name = :cityName")
+    LiveData<CityPOJO> loadCityById(String cityName);
 
-    @Query("SELECT * FROM city WHERE city_id = :cityID")
-    CityPOJO loadCityByIdRecipePOJO(int cityID);
+    @Query("SELECT * FROM city WHERE city_name = :cityName")
+    CityPOJO loadCityByNameCityPOJO(String cityName);
 
 }
