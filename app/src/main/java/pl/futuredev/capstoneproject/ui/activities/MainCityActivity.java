@@ -20,7 +20,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.futuredev.capstoneproject.R;
-import pl.futuredev.capstoneproject.database.dao.CityDao;
 import pl.futuredev.capstoneproject.database.entity.CityDataBase;
 import pl.futuredev.capstoneproject.database.entity.CityPOJO;
 import pl.futuredev.capstoneproject.models.Image;
@@ -83,8 +82,11 @@ public class MainCityActivity extends AppCompatActivity {
 
         cityDataBase = CityDataBase.getInstance(getApplicationContext());
 
+
         settingUpView();
         Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
+
+        new FabColorChecker().execute();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +137,8 @@ public class MainCityActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     private void colorSwitcherForFAB() {
         if (isFavourite) {
@@ -207,5 +211,23 @@ public class MainCityActivity extends AppCompatActivity {
         }
         tvCityMainSnippet.setText(citySnippet);
         tvCityMainName.setText(cityName);
+    }
+
+    private class FabColorChecker extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityId);
+            if (city != null) {
+                isFavourite = true;
+            } else {
+                isFavourite = false;
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            colorSwitcherForFAB();
+        }
     }
 }
