@@ -42,7 +42,7 @@ public class CitySearchResultsActivity extends AppCompatActivity implements IOnC
         resultCity = getIntent().getParcelableArrayListExtra("city");
         cityResultAdapter = new CityResultAdapter(resultCity, CitySearchResultsActivity.this::onClick);
         ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(cityResultAdapter);
-        scaleInAnimationAdapter.setDuration(1350);
+        scaleInAnimationAdapter.setDuration(500);
         scaleInAnimationAdapter.setFirstOnly(false);
         myRecyclerView.setHasFixedSize(true);
         myRecyclerView.setLayoutManager(linearLayoutManager);

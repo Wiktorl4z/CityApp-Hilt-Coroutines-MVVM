@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -21,9 +22,8 @@
 
             <ImageView
                 android:id="@+id/iv_city"
-                android:layout_width="160dp"
-                android:layout_height="140dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="184dp"
+                android:layout_height="179dp"
                 android:layout_marginTop="8dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/thumbnail"
@@ -33,10 +33,11 @@
 
             <TextView
                 android:id="@+id/tv_city_name"
-                android:layout_width="175dp"
+                android:layout_width="184dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/text_size_21"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,24 +47,25 @@
                 android:id="@+id/tv_city_snippet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:textSize="@dimen/text_size_16"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:fontFamily="serif"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iv_city"
                 app:layout_constraintTop_toBottomOf="@+id/tv_country_id" />
 
             <TextView
                 android:id="@+id/tv_country_id"
-                android:layout_width="175dp"
-                android:layout_height="29dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="184dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="@dimen/text_size_21"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/tv_city_name"
                 app:layout_constraintTop_toTopOf="parent" />
 
