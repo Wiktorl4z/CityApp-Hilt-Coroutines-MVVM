@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     CheckBox locationPermissionCheckbox;
     @BindView(R.id.searchView)
     SearchView searchView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private String userName;
     private FirebaseAuth firebaseAuth;
@@ -74,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+
 
         userName = ANONYMOUS;
         firebaseAuth = FirebaseAuth.getInstance();
@@ -101,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         if (UrlManager.API_KEY.isEmpty()) {
             Toast.makeText(getApplicationContext(), R.string.api_key_message, Toast.LENGTH_LONG).show();
         }
+
         internetReceiver = new InternetReceiver();
         service = HttpConnector.getService(APIService.class);
 

@@ -24,15 +24,22 @@
         <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.activities.GPSActivity" />
         <activity android:name=".ui.activities.TopPlacesToSeeActivity" />
         <activity android:name=".ui.activities.TopPlacesToEatActivity" />
         <activity android:name=".ui.activities.TopScoringTagForLocationActivity" />
-        <activity android:name=".ui.activities.MainCityActivity" />
+        <activity
+            android:name=".ui.activities.MainCityActivity"
+            android:theme="@style/AppTheme.Detail"
+            android:parentActivityName=".ui.activities.MainActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.activities.MainActivity" />
+        </activity>
         <activity android:name=".ui.activities.CitySearchResultsActivity" />
 
         <receiver android:name=".ui.widget.CityWidgetProvider">
@@ -51,7 +58,7 @@
 
         <activity
             android:name=".ui.activities.FavouritesCityActivity"
-            android:label="@string/title_activity_favourites_city"></activity>
+            android:label="@string/title_activity_favourites_city" />
     </application>
 
 </manifest>

@@ -39,8 +39,6 @@ public class CityResultAdapter extends RecyclerView.Adapter<CityResultAdapter.Vi
         TextView tvCityName;
         @BindView(R.id.tv_city_snippet)
         TextView tvCitySnippet;
-        @BindView(R.id.tv_city_score)
-        TextView tvCityScore;
         @BindView(R.id.tv_country_id)
         TextView tvCountryId;
 
@@ -72,7 +70,6 @@ public class CityResultAdapter extends RecyclerView.Adapter<CityResultAdapter.Vi
         ImageView ivCity = holder.ivCity;
         TextView tvCityName = holder.tvCityName;
         TextView tvCitySnippet = holder.tvCitySnippet;
-        TextView tvCityScore = holder.tvCityScore;
         TextView tvCountryId =holder.tvCountryId;
 
         List<Image> images = resultList.get(position).getImages();
@@ -95,9 +92,9 @@ public class CityResultAdapter extends RecyclerView.Adapter<CityResultAdapter.Vi
         }
 
         tvCountryId.setText(resultList.get(position).getCountryId());
-        Double scores = resultList.get(position).getScore();
+/*        Double scores = resultList.get(position).getScore();
         String scoresString = Double.toString(scores);
-        tvCityScore.setText(scoresString + " /10");
+        tvCityScore.setText(scoresString + " /10");*/
         tvCityName.setText(resultList.get(position).getName());
         tvCitySnippet.setText(resultList.get(position).getSnippet());
     }

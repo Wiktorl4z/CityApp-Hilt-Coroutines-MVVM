@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/fav__city_menu"
         android:title="@string/favourites_city"
-        app:showAsAction="never"/>
+        app:showAsAction="collapseActionView"/>
 
     <item
         android:id="@+id/sign_out_menu"
         android:title="@string/sign_out"
-        app:showAsAction="never"/>
+        app:showAsAction="collapseActionView"/>
 </menu>

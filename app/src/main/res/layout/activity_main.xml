@@ -8,6 +8,23 @@
     android:background="@drawable/image_city_1"
     tools:context=".ui.activities.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"
+        android:elevation="8dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        </android.support.v7.widget.Toolbar>
+    </FrameLayout>
+
     <CheckBox
         android:id="@+id/location_permission_checkbox"
         android:layout_width="wrap_content"
@@ -33,14 +50,14 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/text_size_16"
+        android:background="@color/primaryLightColor"
         android:onClick="onAddPlaceButtonClicked"
         android:text="@string/gps"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.867" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <SearchView
         android:id="@+id/searchView"

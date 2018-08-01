@@ -7,8 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,10 @@ public class MainCityActivity extends AppCompatActivity {
     TextView tvCityMainSnippet;
     @BindView(R.id.tv_city_main_name)
     TextView tvCityMainName;
+    @BindView(R.id.toolbarId)
+    Toolbar toolbarId;
+    @BindView(R.id.action_up)
+    ImageButton actionUp;
 
     private Image image;
     private InternetReceiver internetReceiver;
@@ -108,7 +114,6 @@ public class MainCityActivity extends AppCompatActivity {
         });
 
 
-
         btTestTopPlacesToSee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +144,6 @@ public class MainCityActivity extends AppCompatActivity {
     }
 
 
-
     private void colorSwitcherForFAB() {
         if (isFavourite) {
             fab.setBackgroundTintList(ColorStateList.valueOf(Color
@@ -151,15 +155,15 @@ public class MainCityActivity extends AppCompatActivity {
     }
 
     public void checkingObjectInDataBase() {
-                CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityName);
-                if (city != null) {
-                    removeFromDatabase(city);
-                    isFavourite = false;
-                } else {
-                    addToDatabase();
-                    isFavourite = true;
-                }
-            }
+        CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityName);
+        if (city != null) {
+            removeFromDatabase(city);
+            isFavourite = false;
+        } else {
+            addToDatabase();
+            isFavourite = true;
+        }
+    }
 
     public void removeFromDatabase(CityPOJO city) {
         AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
@@ -205,9 +209,15 @@ public class MainCityActivity extends AppCompatActivity {
         }
         tvCityMainSnippet.setText(citySnippet);
         tvCityMainName.setText(cityName);
+        actionUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSupportNavigateUp();
+            }
+        });
     }
 
-    private class FabColorChecker extends AsyncTask<Void, Void, Void>{
+    private class FabColorChecker extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityId);
@@ -218,6 +228,7 @@ public class MainCityActivity extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
