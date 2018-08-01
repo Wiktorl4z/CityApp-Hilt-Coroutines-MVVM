@@ -62,7 +62,7 @@ public class MainCityActivity extends AppCompatActivity {
     private String cityName;
     private CityDataBase cityDataBase;
     private CityPOJO cityPOJO;
-    private static boolean isFavourite;
+    private boolean isFavourite;
 
 
     @Override
@@ -151,9 +151,6 @@ public class MainCityActivity extends AppCompatActivity {
     }
 
     public void checkingObjectInDataBase() {
-        AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
-            @Override
-            public void run() {
                 CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityName);
                 if (city != null) {
                     removeFromDatabase(city);
@@ -163,9 +160,6 @@ public class MainCityActivity extends AppCompatActivity {
                     isFavourite = true;
                 }
             }
-        });
-    }
-
 
     public void removeFromDatabase(CityPOJO city) {
         AppExecutors.getInstance().getDiskIO().execute(new Runnable() {

@@ -174,9 +174,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sign_out_menu:
                 AuthUI.getInstance().signOut(this);
                 return true;
+            case R.id.fav__city_menu:
+                openFavouritesCity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void openFavouritesCity() {
+        Intent intent = new Intent(MainActivity.this, FavouritesCityActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -20,4 +20,6 @@
     <string name="city_removed_from_db">Removed from favourite widget</string>
     <string name="add_city_to_db">Add to favourite and to widget</string>
     <string name="appwidget_text">CityChecker</string>
+    <string name="favourites_city">Favourites City</string>
+    <string name="title_activity_favourites_city">FavouritesCityActivity</string>
 </resources>
