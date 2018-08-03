@@ -56,12 +56,15 @@ public class WidgetService extends RemoteViewsService {
             if (cityPOJOList == null) return null;
 
 
-            String recipeName = cityPOJOList.get(position).getCityName();
+            String cityName = cityPOJOList.get(position).getCityName();
+            String citySnipped = cityPOJOList.get(position).getSnippet();
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_item);
 
-            remoteViews.setTextViewText(R.id.tv_widget_recipe_name, recipeName);
+            remoteViews.setTextViewText(R.id.tv_widget_recipe_name, cityName);
             remoteViews.setViewVisibility(R.id.tv_widget_recipe_name, View.VISIBLE);
+            remoteViews.setTextViewText(R.id.tv_widget_recipe_details, citySnipped);
+            remoteViews.setViewVisibility(R.id.tv_widget_recipe_details, View.VISIBLE);
 
             Intent fillIntent = new Intent();
             remoteViews.setOnClickFillInIntent(R.id.tv_widget_recipe_name, fillIntent);

@@ -65,7 +65,7 @@
         android:layout_height="54dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="312dp"
         android:background="@color/primaryLightColor"
         android:iconifiedByDefault="false"
         android:queryHint="@string/search_city"
