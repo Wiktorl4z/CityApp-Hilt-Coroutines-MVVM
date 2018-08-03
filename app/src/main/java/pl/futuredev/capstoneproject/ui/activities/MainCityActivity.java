@@ -1,10 +1,13 @@
 package pl.futuredev.capstoneproject.ui.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,12 +35,15 @@ import pl.futuredev.capstoneproject.service.HttpConnector;
 import pl.futuredev.capstoneproject.service.InternetReceiver;
 import pl.futuredev.capstoneproject.viewmodel.AppExecutors;
 
+import static pl.futuredev.capstoneproject.ui.activities.UIHandler.DISPLAY_UI_TOAST;
+
 public class MainCityActivity extends AppCompatActivity {
 
     private static final String CITY_ID = "city_id";
     private static final String CITY_IMAGE = "city_image";
     private static final String CITY_SNIPPET = "city_snippet";
     private static final String CITY_NAME = "city_name";
+    private static final String CITY_IMAGE_STRING = "city_image_string";
 
     @BindView(R.id.bt_test_top_places_to_see)
     Button btTestTopPlacesToSee;
@@ -69,7 +75,11 @@ public class MainCityActivity extends AppCompatActivity {
     private CityDataBase cityDataBase;
     private CityPOJO cityPOJO;
     private boolean isFavourite;
-
+    private Original originalImage;
+    private String originalImageUrl;
+    private Toast toast;
+    private HandlerThread uiThread;
+    private UIHandler uiHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +90,10 @@ public class MainCityActivity extends AppCompatActivity {
         internetReceiver = new InternetReceiver();
         service = HttpConnector.getService(APIService.class);
 
+        uiThread = new HandlerThread("UIHandler");
+        uiThread.start();
+        uiHandler = new UIHandler(uiThread.getLooper());
+
         Intent intent = getIntent();
         cityId = intent.getStringExtra(CITY_ID);
         cityName = intent.getStringExtra(CITY_NAME);
@@ -88,12 +102,14 @@ public class MainCityActivity extends AppCompatActivity {
 
         cityDataBase = CityDataBase.getInstance(getApplicationContext());
 
-
-        settingUpView();
-        Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
-
+        if (imageList != null && !imageList.isEmpty()) {
+            originalImage = imageList.get(0).getSizes().getOriginal();
+            originalImageUrl = originalImage.getUrl();
+        } else {
+            originalImageUrl = "";
+        }
         new FabColorChecker().execute();
-
+        settingUpView();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,7 +159,6 @@ public class MainCityActivity extends AppCompatActivity {
 
     }
 
-
     private void colorSwitcherForFAB() {
         if (isFavourite) {
             fab.setBackgroundTintList(ColorStateList.valueOf(Color
@@ -176,7 +191,7 @@ public class MainCityActivity extends AppCompatActivity {
     }
 
     public void addToDatabase() {
-        cityPOJO = new CityPOJO(cityName);
+        cityPOJO = new CityPOJO(cityName, citySnippet, imageList, cityId);
         AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -186,27 +201,32 @@ public class MainCityActivity extends AppCompatActivity {
         });
     }
 
-    public void showToast(final String toast) {
-        runOnUiThread(() -> Toast.makeText(this, toast, Toast.LENGTH_SHORT).show());
+    public void showToast(final String message) {
+            runOnUiThread(() -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show());
+
+    }
+
+    protected void handleUIRequest(String message) {
+        Message msg = uiHandler.obtainMessage(UIHandler.DISPLAY_UI_TOAST);
+        msg.obj = message;
+        uiHandler.sendMessage(msg);
     }
 
     private void settingUpView() {
-        if (imageList != null && !imageList.isEmpty()) {
-            Original originalImage = imageList.get(0).getSizes().getOriginal();
-            Picasso.get()
-                    .load(originalImage.getUrl())
-                    .into(threeTwoImage, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Picasso.get().load(originalImage.getUrl()).into(threeTwoImage);
-                        }
+        Picasso.get()
+                .load(originalImageUrl)
+                .into(threeTwoImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Picasso.get().load(originalImageUrl).into(threeTwoImage);
+                    }
 
-                        @Override
-                        public void onError(Exception e) {
-                            Picasso.get().load(R.drawable.rest1).into(threeTwoImage);
-                        }
-                    });
-        }
+                    @Override
+                    public void onError(Exception e) {
+                        Picasso.get().load(R.drawable.rest1).into(threeTwoImage);
+                    }
+                });
+
         tvCityMainSnippet.setText(citySnippet);
         tvCityMainName.setText(cityName);
         actionUp.setOnClickListener(new View.OnClickListener() {
@@ -234,5 +254,11 @@ public class MainCityActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             colorSwitcherForFAB();
         }
+    }
+
+    protected void onPause() {
+        if (toast != null)
+            toast.cancel();
+        super.onPause();
     }
 }

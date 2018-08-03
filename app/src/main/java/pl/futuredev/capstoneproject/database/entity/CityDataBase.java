@@ -6,14 +6,17 @@ import android.arch.persistence.room.DatabaseConfiguration;
 import android.arch.persistence.room.InvalidationTracker;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import pl.futuredev.capstoneproject.R;
+import pl.futuredev.capstoneproject.database.converter.ImagesConverter;
 import pl.futuredev.capstoneproject.database.dao.CityDao;
 
-@Database(entities = {CityPOJO.class}, version = 1, exportSchema = false)
+@Database(entities = {CityPOJO.class}, version = 5, exportSchema = false)
+@TypeConverters({ImagesConverter.class})
 public abstract class CityDataBase extends RoomDatabase {
 
     private static final String LOG_TAG = CityDataBase.class.getSimpleName();

@@ -22,7 +22,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="Food Name" />
+            tools:text="City Name" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,7 +36,7 @@
             android:layout_margin="@dimen/dp8"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/text_size_16"
-            tools:text="Ingredient Name" />
+            tools:text="Snipped City Text" />
     </LinearLayout>
 
 </LinearLayout>
