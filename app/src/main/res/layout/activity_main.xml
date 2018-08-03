@@ -52,7 +52,7 @@
         android:layout_marginStart="8dp"
         android:textSize="@dimen/text_size_16"
         android:background="@color/primaryLightColor"
-        android:onClick="onAddPlaceButtonClicked"
+        android:onClick="onClickGPS"
         android:text="@string/gps"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

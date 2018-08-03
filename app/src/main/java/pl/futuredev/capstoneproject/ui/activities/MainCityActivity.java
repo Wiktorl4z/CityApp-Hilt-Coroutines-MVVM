@@ -162,10 +162,10 @@ public class MainCityActivity extends AppCompatActivity {
     private void colorSwitcherForFAB() {
         if (isFavourite) {
             fab.setBackgroundTintList(ColorStateList.valueOf(Color
-                    .parseColor("#ff0000")));
+                    .parseColor("#087f23")));
         } else {
             fab.setBackgroundTintList(ColorStateList.valueOf(Color
-                    .parseColor("#80e27e")));
+                    .parseColor("#c2c1c1")));
         }
     }
 
@@ -199,11 +199,6 @@ public class MainCityActivity extends AppCompatActivity {
                 showToast(getString(R.string.add_city_to_db));
             }
         });
-    }
-
-    public void showToast(final String message) {
-            runOnUiThread(() -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show());
-
     }
 
     protected void handleUIRequest(String message) {
@@ -254,6 +249,13 @@ public class MainCityActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             colorSwitcherForFAB();
         }
+    }
+
+    private void showToast(String text) {
+        if (toast!=null)
+            toast.cancel();
+        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     protected void onPause() {

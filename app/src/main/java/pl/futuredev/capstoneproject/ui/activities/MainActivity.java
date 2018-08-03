@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private InternetReceiver internetReceiver;
     private APIService service;
     private List<Result> resultList;
+    private Toast toast;
 
 
     @Override
@@ -114,7 +115,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 providedCityByUser = searchView.getQuery().toString();
-                getProvidedCity(providedCityByUser);
+                if (!providedCityByUser.matches("[a-zA-Z ]+")){
+                    showToast(getString(R.string.contain_only_words));
+                } else {
+                    getProvidedCity(providedCityByUser);
+                }
                 return false;
             }
 
@@ -126,23 +131,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onAddPlaceButtonClicked(View view) {
+    public void onClickGPS(View view) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, getString(R.string.need_location_permission_message), Toast.LENGTH_LONG).show();
             return;
         }
-        try {
-            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-            Intent i = builder.build(this);
-            startActivityForResult(i, PLACE_PICKER_REQUEST);
-        } catch (GooglePlayServicesRepairableException e) {
-            Log.e(TAG, String.format("GooglePlayServices Not Available [%s]", e.getMessage()));
-        } catch (GooglePlayServicesNotAvailableException e) {
-            Log.e(TAG, String.format("GooglePlayServices Not Available [%s]", e.getMessage()));
-        } catch (Exception e) {
-            Log.e(TAG, String.format("PlacePicker Exception: %s", e.getMessage()));
-        }
+        Intent intent = new Intent(MainActivity.this, GPSActivity.class);
+        startActivity(intent);
     }
 
 
@@ -263,4 +259,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ;
+
+    private void showToast(String text) {
+        if (toast!=null)
+            toast.cancel();
+        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 }

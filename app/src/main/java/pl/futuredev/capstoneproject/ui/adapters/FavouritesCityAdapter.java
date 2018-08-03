@@ -57,16 +57,16 @@ public class FavouritesCityAdapter extends RecyclerView.Adapter<FavouritesCityAd
 
     @NonNull
     @Override
-    public FavouritesCityAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_city_result, parent, false);
         view.setFocusable(true);
-        return new FavouritesCityAdapter.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull FavouritesCityAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ImageView ivCity = holder.ivCity;
         TextView tvCityName = holder.tvCityName;
         TextView tvCitySnippet = holder.tvCitySnippet;
