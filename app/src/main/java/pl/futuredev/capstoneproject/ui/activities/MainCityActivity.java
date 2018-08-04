@@ -1,6 +1,5 @@
 package pl.futuredev.capstoneproject.ui.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -35,8 +34,6 @@ import pl.futuredev.capstoneproject.service.HttpConnector;
 import pl.futuredev.capstoneproject.service.InternetReceiver;
 import pl.futuredev.capstoneproject.viewmodel.AppExecutors;
 
-import static pl.futuredev.capstoneproject.ui.activities.UIHandler.DISPLAY_UI_TOAST;
-
 public class MainCityActivity extends AppCompatActivity {
 
     private static final String CITY_ID = "city_id";
@@ -51,7 +48,7 @@ public class MainCityActivity extends AppCompatActivity {
     Button btTestTopPlacesToEat;
     @BindView(R.id.bt_test_top_scoring_tags)
     Button btTestTopScoringTags;
-    @BindView(R.id.ThreeTwoImage)
+    @BindView(R.id.threeTwoImage)
     ThreeTwoImageView threeTwoImage;
     @BindView(R.id.fab)
     FloatingActionButton fab;

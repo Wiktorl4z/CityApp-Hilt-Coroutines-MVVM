@@ -29,9 +29,14 @@ import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 public class CityResultAdapter extends RecyclerView.Adapter<CityResultAdapter.ViewHolder> {
 
     private List<Result> resultList;
-    private IOnClickHandler iOnClickHandler;
+    private ItemClickCallback iOnClickHandler;
 
-    public CityResultAdapter(List<Result> resultList, IOnClickHandler iOnClickHandler) {
+    public interface ItemClickCallback {
+        void onItemClick(View v, int p);
+
+    }
+
+    public CityResultAdapter(List<Result> resultList, ItemClickCallback iOnClickHandler) {
         this.resultList = resultList;
         this.iOnClickHandler = iOnClickHandler;
     }
@@ -56,7 +61,7 @@ public class CityResultAdapter extends RecyclerView.Adapter<CityResultAdapter.Vi
         @Override
         public void onClick(View view) {
             int clickPosition = getAdapterPosition();
-            iOnClickHandler.onClick(clickPosition);
+            iOnClickHandler.onItemClick(view, clickPosition);
         }
     }
 
@@ -76,7 +81,7 @@ public class CityResultAdapter extends RecyclerView.Adapter<CityResultAdapter.Vi
         ImageView ivCity = holder.ivCity;
         TextView tvCityName = holder.tvCityName;
         TextView tvCitySnippet = holder.tvCitySnippet;
-        TextView tvCountryId =holder.tvCountryId;
+        TextView tvCountryId = holder.tvCountryId;
 
         List<Image> images = resultList.get(position).getImages();
         if (images != null && !images.isEmpty()) {

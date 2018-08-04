@@ -26,4 +26,7 @@
     <string name="no_fav_city_text">There is no City liked</string>
     <string name="contain_only_words">Please insert only words</string>
     <string name="couldnt_find_city">Sorry, we couldn\'t find any results</string>
+    <string name="image_transition">imageTransition</string>
+    <string name="name_transition">nameTransition</string>
+    <string name="snippet_transition">snippetTransition</string>
 </resources>
