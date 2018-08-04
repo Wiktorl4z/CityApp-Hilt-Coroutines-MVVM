@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,11 @@ public class CitySearchResultsActivity extends AppCompatActivity implements IOnC
 
     @BindView(R.id.my_recycler_view)
     RecyclerView myRecyclerView;
+    @BindView(R.id.iv_no_city)
+    ImageView ivNoCity;
+    @BindView(R.id.tv_no_found_city)
+    TextView tvNoFoundCity;
+
     private CityResultAdapter cityResultAdapter;
     private List<Result> resultCity;
     private LinearLayoutManager linearLayoutManager;
@@ -40,14 +48,19 @@ public class CitySearchResultsActivity extends AppCompatActivity implements IOnC
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         resultCity = getIntent().getParcelableArrayListExtra("city");
-        cityResultAdapter = new CityResultAdapter(resultCity, CitySearchResultsActivity.this::onClick);
-        ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(cityResultAdapter);
-        scaleInAnimationAdapter.setDuration(500);
-        scaleInAnimationAdapter.setFirstOnly(false);
-        myRecyclerView.setHasFixedSize(true);
-        myRecyclerView.setLayoutManager(linearLayoutManager);
-        myRecyclerView.setAdapter(scaleInAnimationAdapter);
-
+        if (resultCity.isEmpty()) {
+            myRecyclerView.setVisibility(View.INVISIBLE);
+            tvNoFoundCity.setVisibility(View.VISIBLE);
+            ivNoCity.setVisibility(View.VISIBLE);
+        } else {
+            myRecyclerView.setVisibility(View.VISIBLE);
+            tvNoFoundCity.setVisibility(View.INVISIBLE);
+            ivNoCity.setVisibility(View.INVISIBLE);
+            cityResultAdapter = new CityResultAdapter(resultCity, CitySearchResultsActivity.this::onClick);
+            myRecyclerView.setHasFixedSize(true);
+            myRecyclerView.setLayoutManager(linearLayoutManager);
+            myRecyclerView.setAdapter(cityResultAdapter);
+        }
     }
 
     @Override

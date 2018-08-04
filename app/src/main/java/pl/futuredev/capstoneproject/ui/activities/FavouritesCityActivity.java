@@ -70,12 +70,13 @@ public class FavouritesCityActivity extends AppCompatActivity implements IOnClic
             ivNoCityFav.setVisibility(View.INVISIBLE);
             tvNoFavText.setVisibility(View.INVISIBLE);
             cityResultAdapter = new FavouritesCityAdapter(cities, FavouritesCityActivity.this::onClick);
-            ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(cityResultAdapter);
+           /* ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(cityResultAdapter);
             scaleInAnimationAdapter.setDuration(1350);
-            scaleInAnimationAdapter.setFirstOnly(false);
+            scaleInAnimationAdapter.setFirstOnly(false);*/
             myRecyclerView.setHasFixedSize(true);
             myRecyclerView.setLayoutManager(linearLayoutManager);
-            myRecyclerView.setAdapter(scaleInAnimationAdapter);
+          //  myRecyclerView.setAdapter(scaleInAnimationAdapter);
+            myRecyclerView.setAdapter(cityResultAdapter);
         } else {
             myRecyclerView.setVisibility(View.INVISIBLE);
             ivNoCityFav.setVisibility(View.VISIBLE);

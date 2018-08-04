@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -32,6 +35,10 @@ public class TopPlacesToSeeActivity extends AppCompatActivity {
 
     @BindView(R.id.my_recycler_view)
     RecyclerView myRecyclerView;
+    @BindView(R.id.iv_no_city)
+    ImageView ivNoCity;
+    @BindView(R.id.tv_no_found_city)
+    TextView tvNoFoundCity;
     private InternetReceiver internetReceiver;
     private APIService service;
     private List<Result> resultList;
@@ -76,20 +83,21 @@ public class TopPlacesToSeeActivity extends AppCompatActivity {
     private void settingUpView(Response<Recipe> response) {
         if (response.isSuccessful()) {
             resultList = response.body().getResults();
-            adapter = new TopPlacesToSeeAdapter(resultList);
-            myRecyclerView.setHasFixedSize(true);
-            myRecyclerView.setLayoutManager(linearLayoutManager);
-            ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(adapter);
-            scaleInAnimationAdapter.setDuration(350);
-            scaleInAnimationAdapter.setFirstOnly(false);
-            myRecyclerView.setAdapter(scaleInAnimationAdapter);
-
-        } else {
-            try {
-                Toast.makeText(TopPlacesToSeeActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT)
-                        .show();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (resultList.isEmpty()) {
+                myRecyclerView.setVisibility(View.INVISIBLE);
+                ivNoCity.setVisibility(View.VISIBLE);
+                tvNoFoundCity.setVisibility(View.VISIBLE);
+            } else {
+                myRecyclerView.setVisibility(View.VISIBLE);
+                ivNoCity.setVisibility(View.INVISIBLE);
+                tvNoFoundCity.setVisibility(View.INVISIBLE);
+                adapter = new TopPlacesToSeeAdapter(resultList);
+                myRecyclerView.setHasFixedSize(true);
+                myRecyclerView.setLayoutManager(linearLayoutManager);
+                ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(adapter);
+                scaleInAnimationAdapter.setDuration(350);
+                scaleInAnimationAdapter.setFirstOnly(false);
+                myRecyclerView.setAdapter(scaleInAnimationAdapter);
             }
         }
     }
