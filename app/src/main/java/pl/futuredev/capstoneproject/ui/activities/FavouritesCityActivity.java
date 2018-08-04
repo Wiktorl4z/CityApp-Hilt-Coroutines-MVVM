@@ -57,14 +57,11 @@ public class FavouritesCityActivity extends AppCompatActivity implements IOnClic
         setContentView(R.layout.activity_favourites_city);
         ButterKnife.bind(this);
 
-
         internetReceiver = new InternetReceiver();
         service = HttpConnector.getService(APIService.class);
         cityDataBase = CityDataBase.getInstance(getApplicationContext());
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        ivNoCityFav.setVisibility(View.VISIBLE);
-        tvNoFavText.setVisibility(View.VISIBLE);
         new CityDataBaseChecker().execute();
     }
 
@@ -80,6 +77,7 @@ public class FavouritesCityActivity extends AppCompatActivity implements IOnClic
             myRecyclerView.setLayoutManager(linearLayoutManager);
             myRecyclerView.setAdapter(scaleInAnimationAdapter);
         } else {
+            myRecyclerView.setVisibility(View.INVISIBLE);
             ivNoCityFav.setVisibility(View.VISIBLE);
             tvNoFavText.setVisibility(View.VISIBLE);
             showToast("No cities in favourite");
@@ -100,10 +98,10 @@ public class FavouritesCityActivity extends AppCompatActivity implements IOnClic
         @Override
         protected Void doInBackground(Void... voids) {
             cities = cityDataBase.cityDao().loadAllCitiesSync();
-            if (cities != null){
-                isFavourite = true;
-            } else {
+            if (cities.isEmpty()){
                 isFavourite = false;
+            } else {
+                isFavourite = true;
             }
             return null;
         }

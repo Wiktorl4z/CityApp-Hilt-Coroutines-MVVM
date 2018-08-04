@@ -251,11 +251,9 @@ public class MainCityActivity extends AppCompatActivity {
         }
     }
 
-    private void showToast(String text) {
-        if (toast!=null)
-            toast.cancel();
-        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        toast.show();
+    public void showToast(final String message)
+    {
+        runOnUiThread(() -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show());
     }
 
     protected void onPause() {
