@@ -68,26 +68,6 @@ public class CitySearchResultsActivity extends AppCompatActivity implements City
         }
     }
 
-  /*  @Override
-    public void onClick(int clickedItemIndex) {
-        Intent intent = new Intent(CitySearchResultsActivity.this, MainCityActivity.class);
-        intent.putExtra(CITY_ID, resultCity.get(clickedItemIndex).getId());
-        intent.putExtra(CITY_NAME, resultCity.get(clickedItemIndex).getName());
-        intent.putParcelableArrayListExtra(CITY_IMAGE, (ArrayList<? extends Parcelable>) resultCity.get(clickedItemIndex).getImages());
-        intent.putExtra(CITY_SNIPPET, resultCity.get(clickedItemIndex).getSnippet());
-        startActivity(intent);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            getWindow().setEnterTransition(new Fade(Fade.IN));
-            getWindow().setExitTransition(new Fade(Fade.OUT));
-
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    this,
-                    new Pair<>(View, String)(ivNoCity,getString(R.string.image_transition));
-            )
-        }
-    }*/
-
     @Override
     public void onItemClick(View v, int clickedItemIndex) {
         Intent intent = new Intent(CitySearchResultsActivity.this, MainCityActivity.class);
@@ -95,7 +75,6 @@ public class CitySearchResultsActivity extends AppCompatActivity implements City
         intent.putExtra(CITY_NAME, resultCity.get(clickedItemIndex).getName());
         intent.putParcelableArrayListExtra(CITY_IMAGE, (ArrayList<? extends Parcelable>) resultCity.get(clickedItemIndex).getImages());
         intent.putExtra(CITY_SNIPPET, resultCity.get(clickedItemIndex).getSnippet());
-        startActivity(intent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(new Fade(Fade.IN));
@@ -111,5 +90,4 @@ public class CitySearchResultsActivity extends AppCompatActivity implements City
             startActivity(intent);
         }
     }
-
 }
