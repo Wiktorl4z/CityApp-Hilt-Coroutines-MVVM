@@ -29,4 +29,5 @@
     <string name="image_transition">imageTransition</string>
     <string name="name_transition">nameTransition</string>
     <string name="snippet_transition">snippetTransition</string>
+    <string name="best_places">Best Places</string>
 </resources>
