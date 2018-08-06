@@ -5,8 +5,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.HandlerThread;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -75,8 +73,6 @@ public class MainCityActivity extends AppCompatActivity {
     private Original originalImage;
     private String originalImageUrl;
     private Toast toast;
-    private HandlerThread uiThread;
-    private UIHandler uiHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +82,6 @@ public class MainCityActivity extends AppCompatActivity {
 
         internetReceiver = new InternetReceiver();
         service = HttpConnector.getService(APIService.class);
-
-        uiThread = new HandlerThread("UIHandler");
-        uiThread.start();
-        uiHandler = new UIHandler(uiThread.getLooper());
-
         Intent intent = getIntent();
         cityId = intent.getStringExtra(CITY_ID);
         cityName = intent.getStringExtra(CITY_NAME);
@@ -106,7 +97,6 @@ public class MainCityActivity extends AppCompatActivity {
             originalImageUrl = "";
         }
         new FabColorChecker().execute();
-        settingUpView();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -198,12 +188,6 @@ public class MainCityActivity extends AppCompatActivity {
         });
     }
 
-    protected void handleUIRequest(String message) {
-        Message msg = uiHandler.obtainMessage(UIHandler.DISPLAY_UI_TOAST);
-        msg.obj = message;
-        uiHandler.sendMessage(msg);
-    }
-
     private void settingUpView() {
         Picasso.get()
                 .load(originalImageUrl)
@@ -232,7 +216,7 @@ public class MainCityActivity extends AppCompatActivity {
     private class FabColorChecker extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityId);
+            CityPOJO city = cityDataBase.cityDao().loadCityByNameCityPOJO(cityName);
             if (city != null) {
                 isFavourite = true;
             } else {
@@ -245,11 +229,11 @@ public class MainCityActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             colorSwitcherForFAB();
+            settingUpView();
         }
     }
 
-    public void showToast(final String message)
-    {
+    public void showToast(final String message) {
         runOnUiThread(() -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show());
     }
 

@@ -15,7 +15,7 @@ import pl.futuredev.capstoneproject.R;
 import pl.futuredev.capstoneproject.database.converter.ImagesConverter;
 import pl.futuredev.capstoneproject.database.dao.CityDao;
 
-@Database(entities = {CityPOJO.class}, version = 5, exportSchema = false)
+@Database(entities = {CityPOJO.class}, version = 6, exportSchema = false)
 @TypeConverters({ImagesConverter.class})
 public abstract class CityDataBase extends RoomDatabase {
 

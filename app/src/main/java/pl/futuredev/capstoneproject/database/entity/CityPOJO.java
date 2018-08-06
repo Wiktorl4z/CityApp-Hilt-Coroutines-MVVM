@@ -15,14 +15,14 @@ import java.util.List;
 import pl.futuredev.capstoneproject.database.converter.ImagesConverter;
 import pl.futuredev.capstoneproject.models.Image;
 
-@Entity(tableName = "city", indices = {@Index(value = "city_name", unique = true)})
+@Entity(tableName = "city", indices = {@Index(value = "name", unique = true)})
 public class CityPOJO implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
     @NonNull
-    @ColumnInfo(name = "city_name")
-    private String cityName;
+    @ColumnInfo(name = "name")
+    private String name;
     @NonNull
     @ColumnInfo(name = "city_snippet")
     private String snippet;
@@ -33,17 +33,17 @@ public class CityPOJO implements Serializable {
     @ColumnInfo(name = "city_id")
     private String cityId;
 
-    public CityPOJO(int id, @NonNull String cityName, @NonNull String snippet, List<Image> images, @NonNull String cityId) {
+    public CityPOJO(int id, @NonNull String name, @NonNull String snippet, List<Image> images, @NonNull String cityId) {
         this.id = id;
-        this.cityName = cityName;
+        this.name = name;
         this.snippet = snippet;
         this.images = images;
         this.cityId = cityId;
     }
 
     @Ignore
-    public CityPOJO(@NonNull String cityName, @NonNull String snippet, List<Image> images, @NonNull String cityId) {
-        this.cityName = cityName;
+    public CityPOJO(@NonNull String name, @NonNull String snippet, List<Image> images, @NonNull String cityId) {
+        this.name = name;
         this.snippet = snippet;
         this.images = images;
         this.cityId = cityId;
@@ -54,8 +54,8 @@ public class CityPOJO implements Serializable {
     }
 
     @NonNull
-    public String getCityName() {
-        return cityName;
+    public String getName() {
+        return name;
     }
 
     @NonNull

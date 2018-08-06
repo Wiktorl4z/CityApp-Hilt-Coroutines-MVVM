@@ -9,8 +9,8 @@ public class AddCityViewModel extends ViewModel {
 
     private LiveData<CityPOJO> city;
 
-    public AddCityViewModel(CityDataBase cityDataBase, String cityName) {
-        this.city = cityDataBase.cityDao().loadCityById(cityName);
+    public AddCityViewModel(CityDataBase cityDataBase, String name) {
+        this.city = cityDataBase.cityDao().loadCityById(name);
     }
 
     public LiveData<CityPOJO> getCity() {

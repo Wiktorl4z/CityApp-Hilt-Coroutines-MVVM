@@ -56,7 +56,7 @@ public class WidgetService extends RemoteViewsService {
             if (cityPOJOList == null) return null;
 
 
-            String cityName = cityPOJOList.get(position).getCityName();
+            String cityName = cityPOJOList.get(position).getName();
             String citySnipped = cityPOJOList.get(position).getSnippet();
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_item);

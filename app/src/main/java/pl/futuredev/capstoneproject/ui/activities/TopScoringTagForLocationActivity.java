@@ -12,13 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import pl.futuredev.capstoneproject.R;
+import pl.futuredev.capstoneproject.models.Image;
 import pl.futuredev.capstoneproject.models.Recipe;
 import pl.futuredev.capstoneproject.models.Result;
 import pl.futuredev.capstoneproject.service.APIService;
@@ -108,9 +108,14 @@ public class TopScoringTagForLocationActivity extends AppCompatActivity implemen
 
     @Override
     public void onClick(int clickedItemIndex) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse((String) resultList.get(clickedItemIndex).getVendorTourUrl()));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
+        List<Image> images = resultList.get(clickedItemIndex).getImages();
+        if (images.get(0).getOwnerUrl().isEmpty()) {
+            Toast.makeText(this, R.string.link_donesnt_work, Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(images.get(0).getOwnerUrl()));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         }
     }
 }

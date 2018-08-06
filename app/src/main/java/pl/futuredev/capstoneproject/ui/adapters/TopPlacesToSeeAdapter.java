@@ -18,7 +18,6 @@ import pl.futuredev.capstoneproject.R;
 import pl.futuredev.capstoneproject.models.Image;
 import pl.futuredev.capstoneproject.models.Medium;
 import pl.futuredev.capstoneproject.models.Result;
-import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 
 public class TopPlacesToSeeAdapter extends RecyclerView.Adapter<TopPlacesToSeeAdapter.ViewHolder> {
     private List<Result> resultList;

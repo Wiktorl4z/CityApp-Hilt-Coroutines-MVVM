@@ -63,7 +63,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        android:contentDescription="@string/image_to_click_about_more_details" />
 
 </android.support.constraint.ConstraintLayout>
 

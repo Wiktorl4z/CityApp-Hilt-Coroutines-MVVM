@@ -26,7 +26,7 @@ public class FavouritesCityAdapter extends RecyclerView.Adapter<FavouritesCityAd
     List<CityPOJO> cities;
     private IOnClickHandler iOnClickHandler;
 
-    public FavouritesCityAdapter(List<CityPOJO>cities, IOnClickHandler iOnClickHandler) {
+    public FavouritesCityAdapter(List<CityPOJO> cities, IOnClickHandler iOnClickHandler) {
         this.cities = cities;
         this.iOnClickHandler = iOnClickHandler;
     }
@@ -72,7 +72,6 @@ public class FavouritesCityAdapter extends RecyclerView.Adapter<FavouritesCityAd
         TextView tvCitySnippet = holder.tvCitySnippet;
         TextView tvCountryId = holder.tvCountryId;
 
-
         List<Image> images = cities.get(position).getImages();
         if (images != null && !images.isEmpty()) {
             Original originalImage = images.get(0).getSizes().getOriginal();
@@ -91,12 +90,10 @@ public class FavouritesCityAdapter extends RecyclerView.Adapter<FavouritesCityAd
                         }
                     });
         }
-
         tvCountryId.setText(cities.get(position).getCityId());
-        tvCityName.setText(cities.get(position).getCityName());
+        tvCityName.setText(cities.get(position).getName());
         tvCitySnippet.setText(cities.get(position).getSnippet());
     }
-
 
     @Override
     public int getItemCount() {
