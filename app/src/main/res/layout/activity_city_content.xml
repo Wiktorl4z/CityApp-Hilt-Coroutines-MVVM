@@ -14,6 +14,7 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/sightseeing_group"
         app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/button_sightseeing_places"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_test_top_places_to_eat" />
@@ -26,6 +27,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/food_group"
         app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/button_more_food_placeses"
         app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_test_top_scoring_tags" />
@@ -37,6 +39,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/tour_group"
         app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/button_more_tours"
         app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_best_places" />

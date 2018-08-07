@@ -17,12 +17,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.futuredev.capstoneproject.R;
 import pl.futuredev.capstoneproject.models.Image;
-import pl.futuredev.capstoneproject.models.Medium;
 import pl.futuredev.capstoneproject.models.Original;
 import pl.futuredev.capstoneproject.models.Result;
 
 public class TopPlacesToEatAdapter extends RecyclerView.Adapter<TopPlacesToEatAdapter.ViewHolder> {
-
 
     private List<Result> resultList;
 
@@ -54,7 +52,6 @@ public class TopPlacesToEatAdapter extends RecyclerView.Adapter<TopPlacesToEatAd
         view.setFocusable(true);
         return new ViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {

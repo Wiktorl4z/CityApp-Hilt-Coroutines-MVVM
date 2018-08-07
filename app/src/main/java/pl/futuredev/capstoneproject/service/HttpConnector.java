@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import pl.futuredev.capstoneproject.service.utils.UrlManager;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -40,6 +39,4 @@ public class HttpConnector {
                 .build();
         return retrofit;
     }
-
-
 }

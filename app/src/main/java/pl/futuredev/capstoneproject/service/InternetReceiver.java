@@ -11,7 +11,6 @@ public class InternetReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         if (isConnected())
             Log.d("NetReceiver", "Internet is connected");
         else
@@ -19,16 +18,17 @@ public class InternetReceiver extends BroadcastReceiver {
     }
 
     public boolean isConnected() {
-
         Runtime runtime = Runtime.getRuntime();
         try {
             Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
             int exitValue = ipProcess.waitFor();
             return (exitValue == 0);
 
-        } catch (IOException e)          { Log.e("ERROR", "IOException",e); }
-        catch (InterruptedException e) { Log.e("ERROR", "InterruptedException",e); }
-
+        } catch (IOException e) {
+            Log.e("ERROR", "IOException", e);
+        } catch (InterruptedException e) {
+            Log.e("ERROR", "InterruptedException", e);
+        }
         return false;
     }
 };

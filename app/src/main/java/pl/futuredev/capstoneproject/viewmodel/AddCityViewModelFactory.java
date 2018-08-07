@@ -9,16 +9,16 @@ import pl.futuredev.capstoneproject.database.entity.CityDataBase;
 public class AddCityViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final CityDataBase cityDataBase;
-    private final String cityName;
+    private final String name;
 
-    public AddCityViewModelFactory(CityDataBase cityDataBase, String cityName) {
+    public AddCityViewModelFactory(CityDataBase cityDataBase, String name) {
         this.cityDataBase = cityDataBase;
-        this.cityName = cityName;
+        this.name = name;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new AddCityViewModel(cityDataBase, cityName);
+        return (T) new AddCityViewModel(cityDataBase, name);
     }
 }

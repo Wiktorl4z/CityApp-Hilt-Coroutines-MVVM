@@ -20,11 +20,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import pl.futuredev.capstoneproject.R;
 import pl.futuredev.capstoneproject.models.Result;
 import pl.futuredev.capstoneproject.ui.adapters.CityResultAdapter;
-import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
 
 public class CitySearchResultsActivity extends AppCompatActivity implements CityResultAdapter.ItemClickCallback {
 

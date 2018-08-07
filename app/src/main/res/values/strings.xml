@@ -30,4 +30,16 @@
     <string name="name_transition">nameTransition</string>
     <string name="snippet_transition">snippetTransition</string>
     <string name="best_places">Best Places</string>
+    <string name="link_donesnt_work">Link doesn\'t work</string>
+    <string name="top_scoring_image">Top scoring image</string>
+    <string name="image_to_click_about_more_details">Image to click about more details</string>
+    <string name="image_displaying_no_found_results">Image displaying no found results</string>
+    <string name="image_displaying_no_favourite_cities">Image displaying no favourite cities</string>
+    <string name="button_more_food_placeses">Button more food placeses</string>
+    <string name="button_more_tours">button more tours</string>
+    <string name="button_sightseeing_places">button sightseeing places</string>
+    <string name="like_button">like button</string>
+    <string name="no_cities_in_fav">No cities in favourite</string>
+    <string name="signed_in">Signed in!</string>
+    <string name="signed_is_canceled">Signed is canceled!</string>
 </resources>

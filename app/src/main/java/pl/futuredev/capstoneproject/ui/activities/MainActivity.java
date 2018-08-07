@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 providedCityByUser = searchView.getQuery().toString();
-                if (!providedCityByUser.matches("[a-zA-Z ]+")){
+                if (!providedCityByUser.matches("[a-zA-Z ]+")) {
                     showToast(getString(R.string.contain_only_words));
                 } else {
                     getProvidedCity(providedCityByUser);
@@ -166,9 +166,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Signed in!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.signed_in, Toast.LENGTH_LONG).show();
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Signed is canceled!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.signed_is_canceled, Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
     ;
 
     private void showToast(String text) {
-        if (toast!=null)
+        if (toast != null)
             toast.cancel();
         toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();

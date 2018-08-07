@@ -67,6 +67,7 @@
         android:id="@+id/fab"
         style="@style/FabStyle"
         android:layout_margin="16dp"
+        android:contentDescription="@string/like_button"
         android:src="@drawable/heart"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />

@@ -87,7 +87,13 @@ public class TopScoringTagForLocationAdapter extends RecyclerView.Adapter<TopSco
                         }
                     });
         }
-        Picasso.get().load(R.drawable.more_details) .into(ivMoreDetails);
+
+        if (images.get(0).getOwnerUrl().isEmpty()) {
+            ivMoreDetails.setVisibility(View.GONE);
+        } else {
+            Picasso.get().load(R.drawable.more_details).into(ivMoreDetails);
+        }
+
         String price = resultList.get(position).getPrice().getAmount();
         String currency = resultList.get(position).getPrice().getCurrency();
         if (price != null && !images.isEmpty()) {
