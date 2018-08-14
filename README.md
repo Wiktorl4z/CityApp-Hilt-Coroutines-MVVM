@@ -29,6 +29,15 @@ You also need browser and API keys in order to use Google Maps with Nearby Place
 * [Animation Recycler View](https://github.com/wasabeef/recyclerview-animators)
 * [Butterknife](http://jakewharton.github.io/butterknife/)
 
+# Screenshots
+
+<img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/login_screen.png" width="280"><img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/sign_in.png" width="280">
+<img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/main_screen.png" width="280">
+<img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/browsing_screen.png" width="280">
+<img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/activity_city_search.png" width="280"><img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/city_main.png" width="280">
+<img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/menu_main.png" width="280"><img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/fav_list.png" width="280"><img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/favourite_list.png" width="280">
+<img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/city_main_more.png" width="280"><img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/food_activity.png" width="280"><img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/sightseeing_activity.png" width="280"><img src="https://github.com/Wiktorl4z/CityApp-The_Travel_Guide/blob/Developer/art/tour_activity.png" width="280">
+
 
 # License
 ```
