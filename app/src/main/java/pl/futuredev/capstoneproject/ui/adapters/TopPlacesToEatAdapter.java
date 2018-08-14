@@ -79,8 +79,9 @@ public class TopPlacesToEatAdapter extends RecyclerView.Adapter<TopPlacesToEatAd
         }
 
         Double scores = resultList.get(position).getScore();
-        String scoresString = Double.toString(scores);
-        tvScore.setText(scoresString + " /10");
+        int score = scores.intValue();
+        String scoresString = Integer.toString(score);
+        tvScore.setText("Scores: "+scoresString+ "/10");
         tvName.setText(resultList.get(position).getName());
         tvSnippet.setText(resultList.get(position).getSnippet());
     }
