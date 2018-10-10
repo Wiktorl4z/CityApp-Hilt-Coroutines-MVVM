@@ -89,7 +89,7 @@ public class Medium implements Parcelable {
         this.height = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Medium> CREATOR = new Parcelable.Creator<Medium>() {
+    public static final Creator<Medium> CREATOR = new Creator<Medium>() {
         @Override
         public Medium createFromParcel(Parcel source) {
             return new Medium(source);

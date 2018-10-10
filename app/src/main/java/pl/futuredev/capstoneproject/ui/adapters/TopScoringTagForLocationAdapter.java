@@ -97,7 +97,7 @@ public class TopScoringTagForLocationAdapter extends RecyclerView.Adapter<TopSco
         String price = resultList.get(position).getPrice().getAmount();
         String currency = resultList.get(position).getPrice().getCurrency();
         if (price != null && !images.isEmpty()) {
-            tvPrice.setText(price + " " + currency);
+            tvPrice.setText("Price: "+price+ " " + currency);
         }
         tvName.setText(resultList.get(position).getName());
     }

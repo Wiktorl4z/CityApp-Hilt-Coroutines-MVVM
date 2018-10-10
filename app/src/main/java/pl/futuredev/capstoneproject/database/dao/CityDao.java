@@ -9,16 +9,24 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import javax.inject.Singleton;
+
+import dagger.Provides;
+import io.reactivex.Flowable;
 import pl.futuredev.capstoneproject.database.entity.CityPOJO;
+
 
 @Dao
 public interface CityDao {
 
     @Query("SELECT * FROM city")
-    LiveData<List<CityPOJO>> loadAllCities();
+    Flowable<List<CityPOJO>> getAllCitiesRx();
+
+    @Query("SELECT * FROM city WHERE name = :name")
+    LiveData<CityPOJO> getCityById(String name);
 
     @Query("SELECT * FROM city")
-    List<CityPOJO> loadAllCitiesSync();
+    List<CityPOJO> getAllCities();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCity(CityPOJO cityPOJO);
@@ -27,9 +35,5 @@ public interface CityDao {
     void deleteCity(CityPOJO cityPOJO);
 
     @Query("SELECT * FROM city WHERE name = :name")
-    LiveData<CityPOJO> loadCityById(String name);
-
-    @Query("SELECT * FROM city WHERE name = :name")
-    CityPOJO loadCityByNameCityPOJO(String name);
-
+    Flowable<CityPOJO> getSelectedCityFromDatabase(String name);
 }

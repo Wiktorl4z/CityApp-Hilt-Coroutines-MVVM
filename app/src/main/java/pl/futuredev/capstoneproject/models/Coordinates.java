@@ -50,7 +50,7 @@ public class Coordinates implements Parcelable {
         this.longitude = (Double) in.readValue(Double.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Coordinates> CREATOR = new Parcelable.Creator<Coordinates>() {
+    public static final Creator<Coordinates> CREATOR = new Creator<Coordinates>() {
         @Override
         public Coordinates createFromParcel(Parcel source) {
             return new Coordinates(source);

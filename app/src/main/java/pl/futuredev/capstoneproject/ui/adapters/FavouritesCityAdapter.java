@@ -2,6 +2,7 @@ package pl.futuredev.capstoneproject.ui.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,17 @@ import pl.futuredev.capstoneproject.database.entity.CityPOJO;
 import pl.futuredev.capstoneproject.models.Image;
 import pl.futuredev.capstoneproject.models.Original;
 import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
+import pl.futuredev.capstoneproject.viewmodel.CityCollectionViewModel;
 
 public class FavouritesCityAdapter extends RecyclerView.Adapter<FavouritesCityAdapter.ViewHolder> {
 
     List<CityPOJO> cities;
     private IOnClickHandler iOnClickHandler;
+    private CityCollectionViewModel cityCollectionViewModel;
 
-    public FavouritesCityAdapter(List<CityPOJO> cities, IOnClickHandler iOnClickHandler) {
+    public FavouritesCityAdapter(List<CityPOJO> cities, CityCollectionViewModel cityCollectionViewModel, IOnClickHandler iOnClickHandler) {
         this.cities = cities;
+        this.cityCollectionViewModel = cityCollectionViewModel;
         this.iOnClickHandler = iOnClickHandler;
     }
 
@@ -98,5 +102,29 @@ public class FavouritesCityAdapter extends RecyclerView.Adapter<FavouritesCityAd
     @Override
     public int getItemCount() {
         return cities.size();
+    }
+
+    private ItemTouchHelper.Callback createHelperCallback() {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                int position = viewHolder.getAdapterPosition();
+                cityCollectionViewModel.deleteCityFromList(
+                        cities.get(position)
+                );
+
+                cities.remove(position);
+                notifyItemRemoved(position);
+            }
+        };
+        return simpleItemTouchCallback;
     }
 }

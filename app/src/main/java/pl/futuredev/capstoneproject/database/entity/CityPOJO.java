@@ -15,6 +15,7 @@ import java.util.List;
 import pl.futuredev.capstoneproject.database.converter.ImagesConverter;
 import pl.futuredev.capstoneproject.models.Image;
 
+
 @Entity(tableName = "city", indices = {@Index(value = "name", unique = true)})
 public class CityPOJO implements Serializable {
 

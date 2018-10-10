@@ -1,19 +1,11 @@
 <resources>
     <string name="app_name">AppCity</string>
     <string name="sign_out">Sign Out</string>
-    <string name="send_button_label">Send</string>
     <string name="gps">GPS</string>
     <string name="need_location_permission_message">need location permission</string>
-    <string name="top_places_to_see">Top Places to See</string>
-    <string name="top_places_to_eat">Top Places to Eat</string>
     <string name="api_key_message">Please insert your API KEY from triposo.com into gradle.properties</string>
     <string name="thumbnail">thumbnail</string>
-    <string name="hotels">Hotels</string>
-    <string name="top_scoring_tag_for_location">Top Scoring Tags for Location</string>
-    <string name="test_activity_main">Main</string>
-    <string name="search">Search</string>
     <string name="search_city">Search City</string>
-    <string name="test">test</string>
     <string name="creating_new_database_instance">Creating new database instance</string>
     <string name="getting_database_instance">Getting the database instance</string>
     <string name="retrieving_recipes_from_db">Actively retrieving recipes from the DataBase</string>
@@ -23,7 +15,7 @@
     <string name="favourites_city">Favourites City</string>
     <string name="title_activity_favourites_city">FavouritesCityActivity</string>
     <string name="up">up</string>
-    <string name="no_fav_city_text">There is no City liked</string>
+    <string name="no_fav_city_text">There is no liked city</string>
     <string name="contain_only_words">Please insert only words</string>
     <string name="couldnt_find_city">Sorry, we couldn\'t find any results</string>
     <string name="image_transition">imageTransition</string>

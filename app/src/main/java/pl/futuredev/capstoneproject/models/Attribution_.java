@@ -89,7 +89,7 @@ public class Attribution_ implements Parcelable {
         this.format = in.readString();
     }
 
-    public static final Parcelable.Creator<Attribution_> CREATOR = new Parcelable.Creator<Attribution_>() {
+    public static final Creator<Attribution_> CREATOR = new Creator<Attribution_>() {
         @Override
         public Attribution_ createFromParcel(Parcel source) {
             return new Attribution_(source);

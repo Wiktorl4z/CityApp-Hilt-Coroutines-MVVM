@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import pl.futuredev.capstoneproject.R;
-import pl.futuredev.capstoneproject.ui.activities.MainActivity;
+import pl.futuredev.capstoneproject.ui.activities.main.MainActivity;
 
 
 public class CityWidgetProvider extends AppWidgetProvider {

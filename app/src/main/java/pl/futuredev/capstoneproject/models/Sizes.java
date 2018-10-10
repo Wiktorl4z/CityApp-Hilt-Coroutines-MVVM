@@ -63,7 +63,7 @@ public class Sizes implements Parcelable {
         this.thumbnail = in.readParcelable(Thumbnail.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Sizes> CREATOR = new Parcelable.Creator<Sizes>() {
+    public static final Creator<Sizes> CREATOR = new Creator<Sizes>() {
         @Override
         public Sizes createFromParcel(Parcel source) {
             return new Sizes(source);

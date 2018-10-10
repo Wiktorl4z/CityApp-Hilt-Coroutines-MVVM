@@ -50,7 +50,7 @@ public class Attribution implements Parcelable {
         this.url = in.readString();
     }
 
-    public static final Parcelable.Creator<Attribution> CREATOR = new Parcelable.Creator<Attribution>() {
+    public static final Creator<Attribution> CREATOR = new Creator<Attribution>() {
         @Override
         public Attribution createFromParcel(Parcel source) {
             return new Attribution(source);

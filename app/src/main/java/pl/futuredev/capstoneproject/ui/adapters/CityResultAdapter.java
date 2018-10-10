@@ -27,7 +27,6 @@ public class CityResultAdapter extends RecyclerView.Adapter<CityResultAdapter.Vi
 
     public interface ItemClickCallback {
         void onItemClick(View v, int p);
-
     }
 
     public CityResultAdapter(List<Result> resultList, ItemClickCallback iOnClickHandler) {

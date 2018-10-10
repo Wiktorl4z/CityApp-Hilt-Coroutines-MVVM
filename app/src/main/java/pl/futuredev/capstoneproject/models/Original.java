@@ -89,7 +89,7 @@ public class Original implements Parcelable {
         this.height = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Original> CREATOR = new Parcelable.Creator<Original>() {
+    public static final Creator<Original> CREATOR = new Creator<Original>() {
         @Override
         public Original createFromParcel(Parcel source) {
             return new Original(source);

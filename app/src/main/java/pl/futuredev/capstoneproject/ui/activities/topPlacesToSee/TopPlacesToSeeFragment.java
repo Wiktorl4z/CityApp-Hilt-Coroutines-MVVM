@@ -1,0 +1,154 @@
+package pl.futuredev.capstoneproject.ui.activities.topPlacesToSee;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import pl.futuredev.capstoneproject.CapstoneApplication;
+import pl.futuredev.capstoneproject.R;
+import pl.futuredev.capstoneproject.di.component.DaggerTopPlacesToSeeComponent;
+import pl.futuredev.capstoneproject.di.module.TopPlacesToSeeModule;
+import pl.futuredev.capstoneproject.models.Recipe;
+import pl.futuredev.capstoneproject.models.Result;
+import pl.futuredev.capstoneproject.service.InternetReceiver;
+import pl.futuredev.capstoneproject.service.TriposoService;
+import pl.futuredev.capstoneproject.ui.adapters.TopPlacesToSeeAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class TopPlacesToSeeFragment extends Fragment {
+
+
+    private static final String TAG = "TopPlacesToSeeActivity";
+    private static final String CITY_ID = "city_id";
+    private InternetReceiver internetReceiver;
+    private TriposoService service;
+    private List<Result> resultList;
+    private RecyclerView.Adapter adapter;
+    private LinearLayoutManager linearLayoutManager;
+    private String cityId;
+    Unbinder unbinder;
+
+    @BindView(R.id.my_recycler_view)
+    RecyclerView myRecyclerView;
+    @BindView(R.id.iv_no_city)
+    ImageView ivNoCity;
+    @BindView(R.id.tv_no_found_city)
+    TextView tvNoFoundCity;
+
+    @Inject
+    TriposoService triposoService;
+
+    public TopPlacesToSeeFragment() {
+        // Required empty public constructor
+    }
+
+    public static TopPlacesToSeeFragment newInstance(String cityId) {
+        TopPlacesToSeeFragment topPlacesToSeeFragment = new TopPlacesToSeeFragment();
+        Bundle args = new Bundle();
+        args.putString(CITY_ID, cityId);
+        topPlacesToSeeFragment.setArguments(args);
+        return topPlacesToSeeFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
+        DaggerTopPlacesToSeeComponent.builder()
+                .topPlacesToSeeModule(new TopPlacesToSeeModule(((TopPlacesToSeeActivity) getContext())))
+                .applicationComponent(CapstoneApplication.get(getActivity()).getApplicationComponent())
+                .build().inject(this);
+
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+     /*   //Set up and subscribe (observe) to the ViewModel
+        newListItemViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(NewListItemViewModel.class);*/
+
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_top_places_to_see, container, false);
+
+        unbinder = ButterKnife.bind(this, view);
+
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            cityId = getArguments().getString(CITY_ID);
+        }
+        internetReceiver = new InternetReceiver();
+        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        getTopPlacesToSee(cityId);
+
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    private void getTopPlacesToSee(String cityId) {
+        triposoService.getTopPlacesToSee(cityId).enqueue(new Callback<Recipe>() {
+            @Override
+            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+                settingUpView(response);
+            }
+
+            @Override
+            public void onFailure(Call<Recipe> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+    }
+
+    ;
+
+    private void settingUpView(Response<Recipe> response) {
+        if (response.isSuccessful()) {
+            resultList = response.body().getResults();
+            if (resultList.isEmpty()) {
+                myRecyclerView.setVisibility(View.INVISIBLE);
+                ivNoCity.setVisibility(View.VISIBLE);
+                tvNoFoundCity.setVisibility(View.VISIBLE);
+            } else {
+                myRecyclerView.setVisibility(View.VISIBLE);
+                ivNoCity.setVisibility(View.INVISIBLE);
+                tvNoFoundCity.setVisibility(View.INVISIBLE);
+                adapter = new TopPlacesToSeeAdapter(resultList);
+                myRecyclerView.setHasFixedSize(true);
+                myRecyclerView.setLayoutManager(linearLayoutManager);
+                ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(adapter);
+                scaleInAnimationAdapter.setDuration(350);
+                scaleInAnimationAdapter.setFirstOnly(false);
+                myRecyclerView.setAdapter(scaleInAnimationAdapter);
+            }
+        }
+    }
+}

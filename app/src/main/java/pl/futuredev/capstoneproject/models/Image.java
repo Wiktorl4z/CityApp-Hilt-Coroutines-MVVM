@@ -128,7 +128,7 @@ public class Image implements Parcelable {
         this.ownerUrl = in.readString();
     }
 
-    public static final Parcelable.Creator<Image> CREATOR = new Parcelable.Creator<Image>() {
+    public static final Creator<Image> CREATOR = new Creator<Image>() {
         @Override
         public Image createFromParcel(Parcel source) {
             return new Image(source);

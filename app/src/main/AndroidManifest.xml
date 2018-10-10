@@ -11,8 +11,9 @@
     <uses-permission android:name="android.permission.TERMS_READ" />
 
     <application
+        android:name=".CapstoneApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -21,26 +22,27 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDIL9P_OcDKiYwrwbqGfRmKJiWANzaaTu0" />
 
-        <activity android:name=".ui.activities.MainActivity">
+        <activity android:name=".ui.activities.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.GPSActivity" />
-        <activity android:name=".ui.activities.TopPlacesToSeeActivity" />
-        <activity android:name=".ui.activities.TopPlacesToEatActivity" />
-        <activity android:name=".ui.activities.TopScoringTagForLocationActivity" />
+        <activity android:name=".ui.activities.gps.GPSActivity" />
+        <activity android:name=".ui.activities.topPlacesToSee.TopPlacesToSeeActivity" />
+        <activity android:name=".ui.activities.topPlacesToEat.TopPlacesToEatActivity" />
+        <activity android:name=".ui.activities.topLocation.TopScoringTagForLocationActivity" />
+        <activity android:name=".ui.activities.citySearchResults.CitySearchResultActivity" />
+
         <activity
-            android:name=".ui.activities.MainCityActivity"
+            android:name=".ui.activities.mainCity.MainCityActivity"
             android:theme="@style/AppTheme.Detail"
-            android:parentActivityName=".ui.activities.MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".ui.activities.MainActivity" />
+            android:parentActivityName=".ui.activities.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.main.MainActivity" />
         </activity>
-        <activity android:name=".ui.activities.CitySearchResultsActivity" />
 
         <receiver android:name=".ui.widget.CityWidgetProvider">
             <intent-filter>
@@ -57,7 +59,7 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <activity
-            android:name=".ui.activities.FavouritesCityActivity"
+            android:name=".ui.activities.favCity.FavCityActivity"
             android:label="@string/title_activity_favourites_city" />
     </application>
 

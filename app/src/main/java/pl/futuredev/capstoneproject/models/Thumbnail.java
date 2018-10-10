@@ -89,7 +89,7 @@ public class Thumbnail implements Parcelable {
         this.height = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Thumbnail> CREATOR = new Parcelable.Creator<Thumbnail>() {
+    public static final Creator<Thumbnail> CREATOR = new Creator<Thumbnail>() {
         @Override
         public Thumbnail createFromParcel(Parcel source) {
             return new Thumbnail(source);

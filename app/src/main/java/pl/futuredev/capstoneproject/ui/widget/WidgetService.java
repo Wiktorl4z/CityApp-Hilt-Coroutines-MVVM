@@ -9,12 +9,13 @@ import android.widget.RemoteViewsService;
 import java.util.List;
 
 import pl.futuredev.capstoneproject.R;
-import pl.futuredev.capstoneproject.database.entity.CityDataBase;
 import pl.futuredev.capstoneproject.database.entity.CityPOJO;
+import pl.futuredev.capstoneproject.database.repository.CityItemRepository;
 
 public class WidgetService extends RemoteViewsService {
 
-    private CityDataBase cityDataBase;
+
+    private CityItemRepository cityItemRepository;
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -37,8 +38,7 @@ public class WidgetService extends RemoteViewsService {
 
         @Override
         public void onDataSetChanged() {
-            cityDataBase = CityDataBase.getInstance(getApplicationContext());
-            cityPOJOList = cityDataBase.cityDao().loadAllCitiesSync();
+            cityPOJOList = cityItemRepository.getAllCitiesSync();
         }
 
         @Override
