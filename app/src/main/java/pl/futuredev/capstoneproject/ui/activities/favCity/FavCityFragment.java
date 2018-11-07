@@ -80,7 +80,6 @@ public class FavCityFragment extends Fragment implements IOnClickHandler {
                 .favCityFragmentModule(new FavCityFragmentModule(((FavCityActivity) getContext())))
                 .applicationComponent(CapstoneApplication.get(getActivity()).getApplicationComponent())
                 .build().inject(this);
-
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {

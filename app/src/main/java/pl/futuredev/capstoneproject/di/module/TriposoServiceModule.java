@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient;
 import pl.futuredev.capstoneproject.service.TriposoService;
 import pl.futuredev.capstoneproject.service.utils.UrlManager;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = NetworkModule.class)
@@ -34,6 +35,7 @@ public class TriposoServiceModule {
     public Retrofit retrofit(OkHttpClient okHttpClient, Gson gson) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .baseUrl(UrlManager.BASE_URL)
                 .build();

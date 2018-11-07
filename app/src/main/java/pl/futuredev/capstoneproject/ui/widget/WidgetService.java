@@ -14,7 +14,6 @@ import pl.futuredev.capstoneproject.database.repository.CityItemRepository;
 
 public class WidgetService extends RemoteViewsService {
 
-
     private CityItemRepository cityItemRepository;
 
     @Override

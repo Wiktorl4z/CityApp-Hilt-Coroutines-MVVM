@@ -35,6 +35,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import pl.futuredev.capstoneproject.CapstoneApplication;
 import pl.futuredev.capstoneproject.R;
 import pl.futuredev.capstoneproject.di.component.DaggerMainActivityComponent;
@@ -48,8 +51,6 @@ import pl.futuredev.capstoneproject.service.utils.UrlManager;
 import pl.futuredev.capstoneproject.ui.activities.citySearchResults.CitySearchResultActivity;
 import pl.futuredev.capstoneproject.ui.activities.favCity.FavCityActivity;
 import pl.futuredev.capstoneproject.ui.activities.gps.GPSActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
+    private final CompositeDisposable disposables = new CompositeDisposable();
     private static String providedCityByUser;
     private InternetReceiver internetReceiver;
     private TriposoService service;
@@ -247,32 +249,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getProvidedCity(String city) {
-        triposoService.getCityByLocationId("trigram:" + city).enqueue(new Callback<Recipe>() {
-            @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
-                responseForProvidedCity(response);
-            }
-
-            @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
+        disposables.add(triposoService.getCityByLocationId("trigram:" + city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::responseForProvidedCity, this::handleError));
     }
 
-    private void responseForProvidedCity(Response<Recipe> response) {
-        if (response.isSuccessful()) {
-            resultList = response.body().getResults();
+    private void responseForProvidedCity(Recipe response) {
+            resultList = response.getResults();
             startActivity(resultList);
-        } else {
-            try {
-                Toast.makeText(MainActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT)
-                        .show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private void startActivity(List<Result> resultList) {
@@ -290,5 +275,15 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    private void handleError(Throwable throwable) {
+        Log.d(TAG, throwable.getMessage());
+        Toast.makeText(getApplicationContext(), "Error accessing database" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        disposables.clear();
+    }
 
 }

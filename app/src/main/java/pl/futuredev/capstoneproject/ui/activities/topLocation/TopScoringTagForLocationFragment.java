@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import pl.futuredev.capstoneproject.CapstoneApplication;
 import pl.futuredev.capstoneproject.R;
@@ -32,9 +36,6 @@ import pl.futuredev.capstoneproject.service.InternetReceiver;
 import pl.futuredev.capstoneproject.service.TriposoService;
 import pl.futuredev.capstoneproject.ui.adapters.TopScoringTagForLocationAdapter;
 import pl.futuredev.capstoneproject.ui.interfaces.IOnClickHandler;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class TopScoringTagForLocationFragment extends Fragment implements IOnClickHandler {
 
@@ -46,6 +47,7 @@ public class TopScoringTagForLocationFragment extends Fragment implements IOnCli
     private List<Result> resultList;
     private RecyclerView.Adapter adapter;
     private LinearLayoutManager linearLayoutManager;
+    private final CompositeDisposable disposables = new CompositeDisposable();
     private String cityName;
     private Recipe recipe;
     private String cityId;
@@ -115,41 +117,29 @@ public class TopScoringTagForLocationFragment extends Fragment implements IOnCli
     }
 
     private void getTopScoredTagsForLocation(String cityId) {
-        triposoService.getTopScoredTagsForLocation(cityId).enqueue(new Callback<Recipe>() {
-            @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
-                settingUpView(response);
-            }
+        disposables.add(triposoService.getTopScoredTagsForLocation(cityId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::settingUpView, this::handleError));
+    };
 
-            @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT)
-                        .show();
-            }
-        });
-    }
-
-    ;
-
-    private void settingUpView(Response<Recipe> response) {
-        if (response.isSuccessful()) {
-            resultList = response.body().getResults();
-            if (resultList.isEmpty()) {
-                myRecyclerView.setVisibility(View.INVISIBLE);
-                ivNoCity.setVisibility(View.VISIBLE);
-                tvNoFoundCity.setVisibility(View.VISIBLE);
-            } else {
-                myRecyclerView.setVisibility(View.VISIBLE);
-                ivNoCity.setVisibility(View.INVISIBLE);
-                tvNoFoundCity.setVisibility(View.INVISIBLE);
-                adapter = new TopScoringTagForLocationAdapter(resultList, TopScoringTagForLocationFragment.this);
-                myRecyclerView.setHasFixedSize(true);
-                myRecyclerView.setLayoutManager(linearLayoutManager);
-                ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(adapter);
-                scaleInAnimationAdapter.setDuration(350);
-                scaleInAnimationAdapter.setFirstOnly(false);
-                myRecyclerView.setAdapter(scaleInAnimationAdapter);
-            }
+    private void settingUpView(Recipe response) {
+        resultList = response.getResults();
+        if (resultList.isEmpty()) {
+            myRecyclerView.setVisibility(View.INVISIBLE);
+            ivNoCity.setVisibility(View.VISIBLE);
+            tvNoFoundCity.setVisibility(View.VISIBLE);
+        } else {
+            myRecyclerView.setVisibility(View.VISIBLE);
+            ivNoCity.setVisibility(View.INVISIBLE);
+            tvNoFoundCity.setVisibility(View.INVISIBLE);
+            adapter = new TopScoringTagForLocationAdapter(resultList, TopScoringTagForLocationFragment.this);
+            myRecyclerView.setHasFixedSize(true);
+            myRecyclerView.setLayoutManager(linearLayoutManager);
+            ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(adapter);
+            scaleInAnimationAdapter.setDuration(350);
+            scaleInAnimationAdapter.setFirstOnly(false);
+            myRecyclerView.setAdapter(scaleInAnimationAdapter);
         }
     }
 
@@ -164,5 +154,16 @@ public class TopScoringTagForLocationFragment extends Fragment implements IOnCli
                 startActivity(intent);
             }
         }
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.d(TAG, throwable.getMessage());
+        Toast.makeText(getContext(), "Error accessing database" + throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        disposables.clear();
     }
 }

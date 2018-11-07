@@ -4,13 +4,13 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
+
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Instrumented test1.test, which will execute on an Android device.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
-        // Context of the app under test.
+        // Context of the app under test.test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("pl.futuredev.capstoneproject", appContext.getPackageName());
