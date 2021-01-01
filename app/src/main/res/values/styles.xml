@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">@dimen/text_size_24</item>
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:windowBackground">@color/backgroundPrimaryColor</item>
+        <item name="android:itemBackground">@color/primaryColor</item>
+        <item name="android:itemTextAppearance">@style/MyActionBar.MenuTextStyle</item>
+        <item name="android:windowActivityTransitions">true</item>
+
+    </style>
+
+    <style name="AppTheme.Detail">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="FabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="borderWidth">0dp</item>
+        <item name="elevation">6dp</item>
+        <item name="pressedTranslationZ">12dp</item>
+        <item name="rippleColor">@android:color/white</item>
+    </style>
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:titleTextStyle">@dimen/text_size_50</item>
+    </style>
+
+    <style name="MyActionBar.MenuTextStyle"
+        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/backgroundPrimaryColor</item>
+        <item name="android:textSize">@dimen/text_size_21</item>
+    </style>
+
+</resources>

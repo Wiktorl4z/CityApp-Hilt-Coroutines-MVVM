@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">AppCity</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="gps">GPS</string>
+    <string name="need_location_permission_message">need location permission</string>
+    <string name="api_key_message">Please insert your API KEY from triposo.com into gradle.properties</string>
+    <string name="thumbnail">thumbnail</string>
+    <string name="search_city">Search City</string>
+    <string name="creating_new_database_instance">Creating new database instance</string>
+    <string name="getting_database_instance">Getting the database instance</string>
+    <string name="retrieving_recipes_from_db">Actively retrieving recipes from the DataBase</string>
+    <string name="city_removed_from_db">Removed from favourite widget</string>
+    <string name="add_city_to_db">Add to favourite and to widget</string>
+    <string name="appwidget_text">CityChecker</string>
+    <string name="favourites_city">Favourites City</string>
+    <string name="title_activity_favourites_city">FavouritesCityActivity</string>
+    <string name="up">up</string>
+    <string name="no_fav_city_text">There is no liked city</string>
+    <string name="contain_only_words">Please insert only words</string>
+    <string name="couldnt_find_city">Sorry, we couldn\'t find any results</string>
+    <string name="image_transition">imageTransition</string>
+    <string name="name_transition">nameTransition</string>
+    <string name="snippet_transition">snippetTransition</string>
+    <string name="best_places">Best Places</string>
+    <string name="link_donesnt_work">Link doesn\'t work</string>
+    <string name="top_scoring_image">Top scoring image</string>
+    <string name="image_to_click_about_more_details">Image to click about more details</string>
+    <string name="image_displaying_no_found_results">Image displaying no found results</string>
+    <string name="image_displaying_no_favourite_cities">Image displaying no favourite cities</string>
+    <string name="button_more_food_placeses">Button more food placeses</string>
+    <string name="button_more_tours">button more tours</string>
+    <string name="button_sightseeing_places">button sightseeing places</string>
+    <string name="like_button">like button</string>
+    <string name="no_cities_in_fav">No cities in favourite</string>
+    <string name="signed_in">Signed in!</string>
+    <string name="signed_is_canceled">Signed is canceled!</string>
+</resources>
