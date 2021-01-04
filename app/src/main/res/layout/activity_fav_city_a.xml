@@ -3,5 +3,5 @@
     android:id="@+id/root_activity_fav_city"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.favCity.FavCityActivity"
+    tools:context=".ui.main.favCity.FavCityActivity"
     />

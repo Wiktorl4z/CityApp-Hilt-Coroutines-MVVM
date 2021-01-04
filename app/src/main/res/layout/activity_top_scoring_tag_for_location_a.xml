@@ -3,5 +3,5 @@
     android:id="@+id/root_activity_top_scoring_tag_for_location"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.topLocation.TopScoringTagForLocationActivity"
+    tools:context=".ui.main.topLocation.TopScoringTagForLocationActivity"
     />

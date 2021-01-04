@@ -3,5 +3,5 @@
     android:id="@+id/root_activity_top_places_to_eat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.topPlacesToEat.TopPlacesToEatActivity"
+    tools:context=".ui.main.topPlacesToEat.TopPlacesToEatActivity"
     />

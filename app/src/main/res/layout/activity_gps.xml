@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.gps.GPSActivity">
+    tools:context=".ui.main.gps.GPSActivity">
 
 </android.support.constraint.ConstraintLayout>

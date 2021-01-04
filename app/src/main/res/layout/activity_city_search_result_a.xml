@@ -3,5 +3,5 @@ xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/root_activity_city_search"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".ui.activities.citySearchResults.CitySearchResultActivity"
+tools:context=".ui.main.citySearchResults.CitySearchResultActivity"
     />
