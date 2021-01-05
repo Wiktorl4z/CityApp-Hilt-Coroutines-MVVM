@@ -6,9 +6,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 import pl.futuredev.capstoneproject.R
 import pl.futuredev.capstoneproject.ui.AuthActivity
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openFavouritesCity() {
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -40,7 +41,5 @@ class MainActivity : AppCompatActivity() {
 
         }
         return super.onOptionsItemSelected(item)
-
-
     }
 }

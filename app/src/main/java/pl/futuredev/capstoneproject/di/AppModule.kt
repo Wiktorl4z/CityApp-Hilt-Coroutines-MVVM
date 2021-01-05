@@ -12,12 +12,15 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import pl.futuredev.capstoneproject.data.local.CityDatabase
 import pl.futuredev.capstoneproject.data.remote.CityApi
 import pl.futuredev.capstoneproject.others.Constants.BASE_URL
 import pl.futuredev.capstoneproject.others.Constants.DATABASE_NAME
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -50,14 +53,31 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNoteDao(db: CityDatabase) = db.cityDao()
+    fun provideCityDao(db: CityDatabase) = db.cityDao()
+
+
+    @Provides
+    @Singleton
+    fun loggingInterceptor(): HttpLoggingInterceptor {
+        val interceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+                Timber.i(message)
+            }
+        })
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC)
+        return interceptor
+    }
 
     @Singleton
     @Provides
-    fun provideCityApi(
-    ): CityApi {
+    fun provideCityApi(loggingInterceptor: HttpLoggingInterceptor): CityApi {
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CityApi::class.java)

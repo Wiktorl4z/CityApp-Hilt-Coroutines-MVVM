@@ -4,11 +4,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
 import pl.futuredev.capstoneproject.R
+import pl.futuredev.capstoneproject.others.EventObserver
 import pl.futuredev.capstoneproject.ui.snackbar
 
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
+
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -19,10 +25,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             override fun onQueryTextSubmit(s: String): Boolean {
                 val providedCity = searchView.query.toString()
                 if (!providedCity.matches("[a-zA-Z]+".toRegex())) {
-                    snackbar(getString(R.string.contain_only_words))
+                    snackbar((getString(R.string.contain_only_words)))
                 } else {
-                    snackbar("Working fine")
-                    // getProvidedCity()
+                    viewModel.getCitiesByName(providedCity)
                 }
                 return false
             }
@@ -31,6 +36,25 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 return false
             }
         })
+
+        subscribeToObservers()
+    }
+
+    private fun subscribeToObservers() {
+        viewModel.cities.observe(
+            viewLifecycleOwner, EventObserver(
+                onError = {
+                    progressBar.visibility = View.INVISIBLE
+                    snackbar(it)
+                },
+                onLoading = { progressBar.visibility = View.VISIBLE },
+
+                onSuccess = {
+                    progressBar.visibility = View.INVISIBLE
+                    snackbar(it.toString())
+                }
+            )
+        )
     }
 
 /*    private fun getProvidedCity(city: String) {
