@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/bt_test_top_places_to_see"
+    <ImageButton
+        android:id="@+id/btSightseeing"
         android:layout_width="189dp"
         android:layout_height="93dp"
         android:layout_marginEnd="8dp"
@@ -17,10 +17,10 @@
         android:contentDescription="@string/button_sightseeing_places"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_test_top_places_to_eat" />
+        app:layout_constraintTop_toBottomOf="@+id/btFood" />
 
-    <Button
-        android:id="@+id/bt_test_top_places_to_eat"
+    <ImageButton
+        android:id="@+id/btFood"
         android:layout_width="190dp"
         android:layout_height="83dp"
         android:layout_marginEnd="8dp"
@@ -30,10 +30,10 @@
         android:contentDescription="@string/button_more_food_placeses"
         app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_test_top_scoring_tags" />
+        app:layout_constraintTop_toBottomOf="@+id/btTour" />
 
-    <Button
-        android:id="@+id/bt_test_top_scoring_tags"
+    <ImageButton
+        android:id="@+id/btTour"
         android:layout_width="190dp"
         android:layout_height="82dp"
         android:layout_marginTop="8dp"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_best_places" />
 
     <TextView
-        android:id="@+id/tv_city_main_snippet"
+        android:id="@+id/tvSnippet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -57,10 +57,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_city_main_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <TextView
-        android:id="@+id/tv_city_main_name"
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -83,6 +83,6 @@
         android:text="@string/best_places"
         android:textSize="@dimen/text_size_21"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_city_main_snippet" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSnippet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

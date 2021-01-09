@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="AppTheme" parent="@style/Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="android:textSize">@dimen/text_size_24</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
@@ -10,6 +10,7 @@
         <item name="colorAccent">@color/primaryLightColor</item>
         <item name="android:windowBackground">@color/backgroundPrimaryColor</item>
         <item name="android:itemBackground">@color/primaryColor</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
         <item name="android:itemTextAppearance">@style/MyActionBar.MenuTextStyle</item>
         <item name="android:windowActivityTransitions">true</item>
     </style>

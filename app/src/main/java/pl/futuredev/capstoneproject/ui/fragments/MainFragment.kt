@@ -1,20 +1,33 @@
-package pl.futuredev.capstoneproject.ui.main
+package pl.futuredev.capstoneproject.ui.fragments
 
 import android.os.Bundle
-import android.view.View
+import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
 import pl.futuredev.capstoneproject.R
 import pl.futuredev.capstoneproject.others.EventObserver
+import pl.futuredev.capstoneproject.ui.viewmodels.MainViewModel
 import pl.futuredev.capstoneproject.ui.snackbar
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        setHasOptionsMenu(true)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,27 +64,41 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
                 onSuccess = {
                     progressBar.visibility = View.INVISIBLE
-                    snackbar(it.toString())
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToCitySearchResultFragment(it.toTypedArray())
+                    )
                 }
             )
         )
     }
 
-/*    private fun getProvidedCity(city: String) {
-        disposables.add(triposoService.getCityByLocationId("trigram:$city")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response: Recipe? -> this.responseForProvidedCity(response) }) { throwable: Throwable? ->
-                this.handleError(
-                    throwable
-                )
-            })
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main_menu, menu)
     }
 
-    private fun responseForProvidedCity(response: Recipe) {
-        resultList = response.getResults()
-        startActivity(resultList)
-    }*/
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favCity -> {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToFavFragment()
+                )
+            }
+            R.id.signOut -> logout()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun logout(){
+        FirebaseAuth.getInstance().signOut()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.mainFragment, true)
+            .build()
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToAuthFragment(),
+            navOptions
+        )
+    }
 
 }
 

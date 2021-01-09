@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import pl.futuredev.capstoneproject.R
 import pl.futuredev.capstoneproject.data.local.CityDatabase
 import pl.futuredev.capstoneproject.data.remote.CityApi
 import pl.futuredev.capstoneproject.others.Constants.BASE_URL
@@ -40,8 +41,8 @@ object AppModule {
     fun provideGlideInstance(@ApplicationContext context: Context) =
         Glide.with(context).setDefaultRequestOptions(
             RequestOptions()
-                //    .placeholder(R.drawable.ic_arrow_back)
-                //    .error(R.drawable.ic_error)
+                .placeholder(R.drawable.ic_city)
+                .error(R.drawable.ic_error)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
         )
 

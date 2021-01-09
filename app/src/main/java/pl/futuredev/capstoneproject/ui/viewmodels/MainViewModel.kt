@@ -1,4 +1,4 @@
-package pl.futuredev.capstoneproject.ui.main
+package pl.futuredev.capstoneproject.ui.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData

@@ -32,29 +32,35 @@ class CityRepository @Inject constructor(
         safeCall {
             val response = cityApi.getTopPlacesToSee(locationId)
             if (response.isSuccessful) {
-                Resource.Success(response)
+                response.body()?.results?.let {
+                    Resource.Success(response.body()!!.results)
+                } ?: Resource.Error("City not found", null)
             } else {
                 Resource.Error("Couldn't fetch data", null)
             }
         }
     }
 
-    suspend fun getTopPlacesToEat(locationId: String) {
+    suspend fun getTopPlacesToEat(locationId: String) = withContext(Dispatchers.IO) {
         safeCall {
             val response = cityApi.getTopPlacesToEat(locationId)
             if (response.isSuccessful) {
-                Resource.Success(response)
+                response.body()?.results?.let {
+                    Resource.Success(response.body()!!.results)
+                } ?: Resource.Error("City not found", null)
             } else {
                 Resource.Error("Couldn't fetch data", null)
             }
         }
     }
 
-    suspend fun getTopScoredTagsForLocation(locationId: String) {
+    suspend fun getTopScoredTagsForLocation(locationId: String) = withContext(Dispatchers.IO) {
         safeCall {
             val response = cityApi.getTopScoredTagsForLocation(locationId)
             if (response.isSuccessful) {
-                Resource.Success(response)
+                response.body()?.results?.let {
+                    Resource.Success(response.body()!!.results)
+                } ?: Resource.Error("City not found", null)
             } else {
                 Resource.Error("Couldn't fetch data", null)
             }

@@ -2,10 +2,97 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_main"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/authFragment">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="pl.futuredev.capstoneproject.ui.main.MainFragment"
-        android:label="MainFragment" />
+        android:name="pl.futuredev.capstoneproject.ui.fragments.MainFragment"
+        android:label="MainFragment">
+        <action
+            android:id="@+id/action_mainFragment_to_citySearchResultFragment"
+            app:destination="@id/citiesFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_favFragment"
+            app:destination="@id/favFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/citiesFragment"
+        android:name="pl.futuredev.capstoneproject.ui.fragments.CitiesFragment"
+        android:label="CityFragment">
+        <action
+            android:id="@+id/action_citySearchResultFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="results"
+            app:argType="pl.futuredev.capstoneproject.data.remote.entities.Result[]" />
+        <action
+            android:id="@+id/action_citiesFragment_to_cityFragment"
+            app:destination="@id/cityFragment" />
+        <action
+            android:id="@+id/action_citiesFragment_to_favFragment"
+            app:destination="@id/favFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/favFragment"
+        android:name="pl.futuredev.capstoneproject.ui.fragments.FavFragment"
+        android:label="FavFragment">
+        <action
+            android:id="@+id/action_favFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="pl.futuredev.capstoneproject.ui.fragments.AuthFragment"
+        android:label="AuthFragment">
+        <action
+            android:id="@+id/action_authFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cityFragment"
+        android:name="pl.futuredev.capstoneproject.ui.fragments.CityFragment"
+        android:label="CityFragment" >
+        <action
+            android:id="@+id/action_cityFragment_to_citiesFragment"
+            app:destination="@id/citiesFragment" />
+        <action
+            android:id="@+id/action_cityFragment_to_topPlaceFragment"
+            app:destination="@id/topPlaceFragment" />
+        <action
+            android:id="@+id/action_cityFragment_to_favFragment"
+            app:destination="@id/favFragment" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="snippet"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="images"
+            app:argType="pl.futuredev.capstoneproject.data.remote.entities.Image[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/topPlaceFragment"
+        android:name="pl.futuredev.capstoneproject.ui.fragments.TopPlaceFragment"
+        android:label="TopPlaceFragment" >
+        <action
+            android:id="@+id/action_topPlaceFragment_to_cityFragment"
+            app:destination="@id/cityFragment" />
+        <action
+            android:id="@+id/action_topPlaceFragment_to_favFragment"
+            app:destination="@id/favFragment" />
+        <argument
+            android:name="city"
+            app:argType="string" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
 </navigation>

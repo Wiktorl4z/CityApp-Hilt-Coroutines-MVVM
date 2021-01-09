@@ -12,7 +12,7 @@
         android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@+id/iv_no_city"
+        android:id="@+id/ivNoCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -21,7 +21,7 @@
         android:visibility="invisible"
         android:layout_marginTop="188dp"
         android:background="@drawable/nothing_found_icon"
-        app:layout_constraintBottom_toTopOf="@+id/tv_no_found_city"
+        app:layout_constraintBottom_toTopOf="@+id/tvNoCity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
         android:contentDescription="@string/top_scoring_image" />
 
     <TextView
-        android:id="@+id/tv_no_found_city"
+        android:id="@+id/tvNoCity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="invisible"

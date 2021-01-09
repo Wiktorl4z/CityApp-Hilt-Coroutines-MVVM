@@ -19,5 +19,9 @@ object Constants {
     const val FIND_CITY_MY_ID =
         "api/20180627/location.json?id=London&fields=all&account=$ACCOUNT_ID&token=$API_KEY"
 
+    const val SCORING ="SCORING_TAG"
+    const val PLACES_EAT ="PLACES_EAT"
+    const val PLACES_TO_SEE ="PLACES_TO_SEE"
+
 
 }
