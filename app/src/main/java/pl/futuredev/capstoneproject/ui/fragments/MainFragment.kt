@@ -9,14 +9,17 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_main.*
 import pl.futuredev.capstoneproject.R
+import pl.futuredev.capstoneproject.databinding.FragmentMainBinding
 import pl.futuredev.capstoneproject.others.EventObserver
-import pl.futuredev.capstoneproject.ui.viewmodels.MainViewModel
 import pl.futuredev.capstoneproject.ui.snackbar
+import pl.futuredev.capstoneproject.ui.viewmodels.MainViewModel
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
+
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -26,17 +29,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        checkBox.setOnClickListener {}
-        btGPS.setOnClickListener {}
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.checkBox.setOnClickListener {}
+        binding.btGPS.setOnClickListener {}
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
-                val providedCity = searchView.query.toString()
+                val providedCity = binding.searchView.query.toString()
                 if (!providedCity.matches("[a-zA-Z]+".toRegex())) {
                     snackbar((getString(R.string.contain_only_words)))
                 } else {
@@ -57,13 +62,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewModel.cities.observe(
             viewLifecycleOwner, EventObserver(
                 onError = {
-                    progressBar.visibility = View.INVISIBLE
+                    binding.progressBar.visibility = View.INVISIBLE
                     snackbar(it)
                 },
-                onLoading = { progressBar.visibility = View.VISIBLE },
+                onLoading = { binding.progressBar.visibility = View.VISIBLE },
 
                 onSuccess = {
-                    progressBar.visibility = View.INVISIBLE
+                    binding.progressBar.visibility = View.INVISIBLE
                     findNavController().navigate(
                         MainFragmentDirections.actionMainFragmentToCitySearchResultFragment(it.toTypedArray())
                     )
@@ -89,7 +94,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun logout(){
+    private fun logout() {
         FirebaseAuth.getInstance().signOut()
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.mainFragment, true)
@@ -98,6 +103,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             MainFragmentDirections.actionMainFragmentToAuthFragment(),
             navOptions
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

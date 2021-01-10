@@ -3,7 +3,9 @@ package pl.futuredev.capstoneproject.ui.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -12,13 +14,26 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import pl.futuredev.capstoneproject.MainActivity
 import pl.futuredev.capstoneproject.R
+import pl.futuredev.capstoneproject.databinding.FragmentAuthBinding
 import pl.futuredev.capstoneproject.ui.snackbar
 
 @AndroidEntryPoint
 class AuthFragment : Fragment(R.layout.fragment_auth) {
 
+    private var _binding: FragmentAuthBinding? = null
+    private val binding get() = _binding!!
+
     companion object {
         const val SIGN_CODE = 1001
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentAuthBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,4 +87,8 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

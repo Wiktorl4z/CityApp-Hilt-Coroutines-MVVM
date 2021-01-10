@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import kotlinx.android.synthetic.main.adapter_top_places.view.*
 import pl.futuredev.capstoneproject.R
 import pl.futuredev.capstoneproject.data.remote.entities.Image
 import pl.futuredev.capstoneproject.data.remote.entities.Result
+import pl.futuredev.capstoneproject.databinding.AdapterTopPlacesBinding
 import javax.inject.Inject
 
 class TopPlacesAdapter @Inject constructor(
@@ -17,18 +17,23 @@ class TopPlacesAdapter @Inject constructor(
 ) :
     RecyclerView.Adapter<TopPlacesAdapter.TopPlacesViewHolder>() {
 
-    inner class TopPlacesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
     private var onItemClickListener: ((Int) -> Unit)? = null
 
+    class TopPlacesViewHolder(private val itemBinding: AdapterTopPlacesBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
+
+        val name = itemBinding.tvName
+        val snippet = itemBinding.tvSnippet
+        val image = itemBinding.ivImage
+        val details = itemBinding.ivDetails
+        val score = itemBinding.tvScore
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopPlacesViewHolder {
-        return TopPlacesViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.adapter_top_places,
-                parent,
-                false
-            )
-        )
+        val itemBinding =
+            AdapterTopPlacesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TopPlacesViewHolder(itemBinding)
+
     }
 
     override fun onBindViewHolder(holder: TopPlacesViewHolder, position: Int) {
@@ -36,14 +41,14 @@ class TopPlacesAdapter @Inject constructor(
         val images: List<Image> = cities[position].images
 
         holder.itemView.apply {
-            tvName.text = city.name
-            tvSnippet.text = city.snippet
+            holder.name.text = city.name
+            holder.snippet.text = city.snippet
             if (images.isNotEmpty()) {
-                glide.load(city.images[0].sizes.original.url).into(ivImage)
+                glide.load(city.images[0].sizes.original.url).into(holder.image)
                 if (images[0].ownerUrl.isEmpty()) {
-                    ivDetails.visibility = View.GONE
+                    holder.details.visibility = View.GONE
                 } else {
-                    glide.load(R.drawable.more_details).into(ivDetails)
+                    glide.load(R.drawable.more_details).into(holder.details)
                 }
             }
 
@@ -53,7 +58,7 @@ class TopPlacesAdapter @Inject constructor(
                 }
             }
             val scores = cities[position].score.toInt().toString()
-            tvScore.text = "Scores: $scores/10"
+            holder.score.text = "Scores: $scores/10"
         }
     }
 

@@ -3,17 +3,18 @@ package pl.futuredev.capstoneproject.ui.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_main.progressBar
-import kotlinx.android.synthetic.main.fragment_top_place.*
 import pl.futuredev.capstoneproject.R
 import pl.futuredev.capstoneproject.data.remote.entities.Result
+import pl.futuredev.capstoneproject.databinding.FragmentTopPlaceBinding
 import pl.futuredev.capstoneproject.others.EventObserver
 import pl.futuredev.capstoneproject.ui.adapters.TopPlacesAdapter
 import pl.futuredev.capstoneproject.ui.viewmodels.TopPlaceViewModel
@@ -21,6 +22,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class TopPlaceFragment : Fragment(R.layout.fragment_top_place) {
+
+    private var _binding: FragmentTopPlaceBinding? = null
+    private val binding get() = _binding!!
 
     private val args: TopPlaceFragmentArgs by navArgs()
 
@@ -33,6 +37,15 @@ class TopPlaceFragment : Fragment(R.layout.fragment_top_place) {
     @Inject
     lateinit var glide: RequestManager
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentTopPlaceBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,22 +57,23 @@ class TopPlaceFragment : Fragment(R.layout.fragment_top_place) {
         viewModel.city.observe(
             viewLifecycleOwner, EventObserver(
                 onError = {
-                    progressBar.visibility = View.INVISIBLE
+                    binding.progressBar.visibility = View.INVISIBLE
                 },
                 onLoading = {
-                    progressBar.visibility = View.VISIBLE },
+                    binding.progressBar.visibility = View.VISIBLE
+                },
 
                 onSuccess = {
-                    ivNoCity.visibility = View.INVISIBLE
-                    tvNoCity.visibility = View.INVISIBLE
-                    progressBar.visibility = View.INVISIBLE
+                    binding.ivNoCity.visibility = View.INVISIBLE
+                    binding.tvNoCity.visibility = View.INVISIBLE
+                    binding.progressBar.visibility = View.INVISIBLE
                     resultList = it
                     setupRecyclerView(it)
                 })
         )
     }
 
-    private fun setupRecyclerView(result: List<Result>) = rvPlaces.apply {
+    private fun setupRecyclerView(result: List<Result>) = binding.rvPlaces.apply {
         if (result.isNotEmpty()) {
             topPlacesAdapter = TopPlacesAdapter(glide, result)
             adapter = topPlacesAdapter
@@ -78,4 +92,10 @@ class TopPlaceFragment : Fragment(R.layout.fragment_top_place) {
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

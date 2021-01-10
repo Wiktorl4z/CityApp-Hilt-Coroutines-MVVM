@@ -1,15 +1,17 @@
 package pl.futuredev.capstoneproject.ui.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.city_content.*
-import kotlinx.android.synthetic.main.fragment_city.*
 import pl.futuredev.capstoneproject.R
+import pl.futuredev.capstoneproject.databinding.CityContentBinding
+import pl.futuredev.capstoneproject.databinding.FragmentCityBinding
 import pl.futuredev.capstoneproject.others.Constants
 import javax.inject.Inject
 
@@ -18,15 +20,31 @@ class CityFragment : Fragment(R.layout.fragment_city) {
 
     private val args: CityFragmentArgs by navArgs()
 
+    private var _binding: FragmentCityBinding? = null
+    private lateinit var cityContent: CityContentBinding
+
+    private val binding get() = _binding!!
+
     @Inject
     lateinit var glide: RequestManager
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentCityBinding.inflate(inflater, container, false)
+        cityContent = CityContentBinding.bind(binding.root)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpViews()
 
-        btFood.setOnClickListener {
+        cityContent.btFood.setOnClickListener {
             findNavController().navigate(
                 CityFragmentDirections.actionCityFragmentToTopPlaceFragment(
                     args.id,
@@ -34,7 +52,7 @@ class CityFragment : Fragment(R.layout.fragment_city) {
                 )
             )
         }
-        btSightseeing.setOnClickListener {
+        cityContent.btSightseeing.setOnClickListener {
             findNavController().navigate(
                 CityFragmentDirections.actionCityFragmentToTopPlaceFragment(
                     args.id,
@@ -42,7 +60,7 @@ class CityFragment : Fragment(R.layout.fragment_city) {
                 )
             )
         }
-        btTour.setOnClickListener {
+        cityContent.btTour.setOnClickListener {
             findNavController().navigate(
                 CityFragmentDirections.actionCityFragmentToTopPlaceFragment(
                     args.id,
@@ -54,8 +72,13 @@ class CityFragment : Fragment(R.layout.fragment_city) {
     }
 
     private fun setUpViews() {
-        tvSnippet.text = args.snippet
-        tvName.text = args.name
-        glide.load(args.images[0].sizes.original.url).into(threeTwoImage)
+        cityContent.tvSnippet.text = args.snippet
+        cityContent.tvName.text = args.name
+        glide.load(args.images[0].sizes.original.url).into(binding.threeTwoImage)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

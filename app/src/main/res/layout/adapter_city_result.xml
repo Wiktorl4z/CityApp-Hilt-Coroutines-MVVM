@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_city"
+            android:id="@+id/ivCity"
             android:layout_width="184dp"
             android:layout_height="179dp"
             android:layout_marginStart="8dp"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_city_name"
+            android:id="@+id/tvCityName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -37,13 +37,13 @@
             android:textSize="@dimen/text_size_16"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_city"
+            app:layout_constraintStart_toEndOf="@+id/ivCity"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible"/>
 
 
         <TextView
-            android:id="@+id/tv_city_snippet"
+            android:id="@+id/tvCitySnippet"
             android:layout_width="0dp"
             android:transitionName="@string/snippet_transition"
             android:layout_height="wrap_content"
@@ -55,11 +55,11 @@
             android:textSize="@dimen/text_size_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/iv_city"
-            app:layout_constraintTop_toBottomOf="@+id/tv_country_id" />
+            app:layout_constraintStart_toEndOf="@+id/ivCity"
+            app:layout_constraintTop_toBottomOf="@+id/tvCountId" />
 
         <TextView
-            android:id="@+id/tv_country_id"
+            android:id="@+id/tvCountId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -70,8 +70,8 @@
             android:textSize="@dimen/text_size_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/iv_city"
-            app:layout_constraintTop_toBottomOf="@+id/tv_city_name" />
+            app:layout_constraintStart_toEndOf="@+id/ivCity"
+            app:layout_constraintTop_toBottomOf="@+id/tvCityName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
