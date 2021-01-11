@@ -61,6 +61,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun subscribeToObservers() {
         viewModel.cities.observe(
             viewLifecycleOwner, EventObserver(
+
                 onError = {
                     binding.progressBar.visibility = View.INVISIBLE
                     snackbar(it)
