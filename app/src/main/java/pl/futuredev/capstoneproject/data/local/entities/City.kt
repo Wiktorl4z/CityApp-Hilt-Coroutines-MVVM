@@ -1,19 +1,19 @@
 package pl.futuredev.capstoneproject.data.local.entities
 
-import android.media.Image
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import pl.futuredev.capstoneproject.data.local.converters.ImagesConverter
+import pl.futuredev.capstoneproject.data.remote.entities.Image
 
 @Entity
-data class City constructor(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int,
+data class City (
     val name: String,
     val snippet: String,
     @TypeConverters(ImagesConverter::class)
-    val images: List<Image>,
+    val image: List<Image>? = null,
     val cityId: String
 ) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 }

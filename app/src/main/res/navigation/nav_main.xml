@@ -75,7 +75,7 @@
             android:name="name"
             app:argType="string" />
         <argument
-            android:name="images"
+            android:name="image"
             app:argType="pl.futuredev.capstoneproject.data.remote.entities.Image[]" />
     </fragment>
     <fragment

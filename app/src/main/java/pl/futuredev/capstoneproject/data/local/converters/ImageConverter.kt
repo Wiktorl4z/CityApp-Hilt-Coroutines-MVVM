@@ -1,9 +1,9 @@
 package pl.futuredev.capstoneproject.data.local.converters
 
-import android.media.Image
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import pl.futuredev.capstoneproject.data.remote.entities.Image
 import java.io.Serializable
 import java.lang.reflect.Type
 

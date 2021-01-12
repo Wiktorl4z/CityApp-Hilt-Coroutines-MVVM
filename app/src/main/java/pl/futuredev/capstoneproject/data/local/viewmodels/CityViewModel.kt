@@ -25,8 +25,8 @@ class CityViewModel @ViewModelInject constructor(
         cityRepository.insertCity(city)
     }
 
-    fun deleteCity(city: City) = viewModelScope.launch(dispatcher) {
-        cityRepository.deleteCity(city)
+    fun deleteCityByName(name: String) = viewModelScope.launch(dispatcher) {
+        cityRepository.deleteCityByName(name)
     }
 
     fun getAllCities() {

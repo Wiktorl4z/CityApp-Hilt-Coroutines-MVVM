@@ -49,7 +49,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 return false
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
@@ -61,13 +60,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun subscribeToObservers() {
         viewModel.cities.observe(
             viewLifecycleOwner, EventObserver(
-
                 onError = {
                     binding.progressBar.visibility = View.INVISIBLE
                     snackbar(it)
                 },
                 onLoading = { binding.progressBar.visibility = View.VISIBLE },
-
                 onSuccess = {
                     binding.progressBar.visibility = View.INVISIBLE
                     findNavController().navigate(
