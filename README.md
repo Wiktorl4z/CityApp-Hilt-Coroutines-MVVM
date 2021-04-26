@@ -16,6 +16,14 @@ You also need create a Firebase Project and download **google-services.json** in
 You also need browser and API keys in order to use Google Maps with Nearby Places. <br>Please refer to [Developer Console](https://console.developers.google.com/)
 
 # Built With
+
+Branch refactor:
+* MVVM
+* Coroutines
+* Hilt
+* Navigations
+
+Branch master:
 * [MVVM Pattern](https://github.com/googlesamples/android-architecture/)
 * [Dagger2](https://github.com/google/dagger/)
 * [RxJava2](https://github.com/ReactiveX/RxJava/)
